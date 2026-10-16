@@ -511,7 +511,7 @@
 </table>
 
 <div class="alert alert-note">
-  <strong>Class Imbalance Characterization:</strong> Across both fleets, healthy baseline operation comprises &gt;96.5% to 99.6% of training observations. Chronological splitting isolates major physical breakdowns into the test sets, creating an operational test distribution where positive prevalence reaches 12.54% (MetroPT-3) and 15.88% (MetroPT-2).
+  <strong>Class Imbalance Characterization:</strong> Across both fleets, healthy baseline operation comprises &gt;96.5% to 99.6% of training observations. Chronological splitting isolates major physical breakdowns into the test sets, creating an operational test distribution where positive prevalence reaches 12.54% at the timestep level (12.55% at the 10-minute window level, 3,378/26,925 in MetroPT-3) and 15.88% (MetroPT-2).
 </div>
 
 <div class="page-break"></div>
@@ -534,7 +534,7 @@
     <tr><td><strong>MetroPT-3</strong></td><td>Train (Original)</td><td class="num">125,165</td><td class="num">517</td><td class="num">125,682</td><td class="center">242.1 : 1 (Imbalanced)</td></tr>
     <tr><td><strong>MetroPT-3</strong></td><td>Train (Balanced)</td><td class="num"><strong>517</strong></td><td class="num"><strong>517</strong></td><td class="num"><strong>1,034</strong></td><td class="center"><strong>1.0 : 1 (Balanced)</strong></td></tr>
     <tr><td><strong>MetroPT-3</strong></td><td>Validation (Natural)</td><td class="num">26,925</td><td class="num">0</td><td class="num">26,925</td><td class="center">Clean Baseline</td></tr>
-    <tr><td><strong>MetroPT-3</strong></td><td>Test (Natural)</td><td class="num">23,551</td><td class="num">3,374</td><td class="num">26,925</td><td class="center">7.0 : 1 (Natural)</td></tr>
+    <tr><td><strong>MetroPT-3</strong></td><td>Test (Natural)</td><td class="num">23,547</td><td class="num">3,378</td><td class="num">26,925</td><td class="center">7.0 : 1 (Natural)</td></tr>
     <tr><td><strong>MetroPT-2</strong></td><td>Train (Original)</td><td class="num">76,736</td><td class="num">365</td><td class="num">77,101</td><td class="center">210.2 : 1 (Imbalanced)</td></tr>
     <tr><td><strong>MetroPT-2</strong></td><td>Train (Balanced)</td><td class="num"><strong>365</strong></td><td class="num"><strong>365</strong></td><td class="num"><strong>730</strong></td><td class="center"><strong>1.0 : 1 (Balanced)</strong></td></tr>
     <tr><td><strong>MetroPT-2</strong></td><td>Validation (Natural)</td><td class="num">17,783</td><td class="num">0</td><td class="num">17,783</td><td class="center">Clean Baseline</td></tr>
@@ -764,7 +764,7 @@
 <div class="alert alert-note" style="margin-top: 14px;">
   <strong>Confusion Matrix Diagnostic Takeaways:</strong>
   <ul style="margin: 6px 0 0 0; padding-left: 18px; font-size: 8.8pt; line-height: 1.42;">
-    <li><strong>MetroPT-2 In-Distribution Fault Tracking (Task 1):</strong> GRU and LSTM models achieve 100% recall (TP = 3,767, FN = 0, TN = 18,725, FP = 1,222) with 96.8% precision, while TCN detects 3,766 out of 3,767 positive windows (Recall = 99.97%). The active air-leak failure creates sustained pressure-cycle anomalies that all three temporal architectures identify reliably.</li>
+    <li><strong>MetroPT-2 In-Distribution Fault Tracking (Task 1):</strong> GRU and LSTM models achieve 100% recall (TP = 3,767, FN = 0, TN = 19,825, FP = 122 for GRU; TN = 19,823, FP = 124 for LSTM) with 96.86% and 96.81% precision, while TCN detects 3,766 out of 3,767 positive windows (Recall = 99.97%, TN = 19,818, FP = 129, Precision = 96.69%). The active air-leak failure creates sustained pressure-cycle anomalies that all three temporal architectures identify reliably.</li>
     <li><strong>MetroPT-2 Anticipatory Early Warning (Task 2):</strong> When active outage windows are excluded, GRU and LSTM capture 100% of pre-failure lead windows (TP = 120, FN = 0) with false alarms restricted to 122 and 124 windows across 19,947 healthy observations (Test FPR &approx; 0.61%–0.62%). TCN detects 119 out of 120 windows (Recall = 99.17%, FP = 129, Test FPR &approx; 0.65%).</li>
     <li><strong>MetroPT-3 Out-of-Distribution Shift:</strong> When models trained on pneumatic air leaks encounter an unobserved lubrication failure (oil leak) in the test set, the default decision threshold (&tau; = 0.50) triggers zero true positives for LSTM (TP = 0, FP = 0) and GRU (TP = 0, FP = 29). TCN's dilated receptive fields capture 51 positive windows (TP = 51, FP = 72). Calibrating thresholds on validation quantiles restores operational sensitivity (Recall = 31.4%–35.0%) without test label leakage.</li>
   </ul>

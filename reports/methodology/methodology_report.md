@@ -150,7 +150,7 @@ In strict adherence to research integrity guidelines, sample records are extract
 | **MetroPT-3** | **Train (Original)** | 125,165 | 517 | 125,682 | 242.1 : 1 (Imbalanced) |
 | **MetroPT-3** | **Train (Balanced)** | **517** | **517** | **1,034** | **1.0 : 1 (Balanced)** |
 | **MetroPT-3** | **Val (Natural)** | 26,925 | 0 | 26,925 | Baseline Clean |
-| **MetroPT-3** | **Test (Natural)**| 23,551 | 3,374 | 26,925 | 7.0 : 1 (Natural) |
+| **MetroPT-3** | **Test (Natural)**| 23,547 | 3,378 | 26,925 | 7.0 : 1 (Natural) |
 | **MetroPT-2** | **Train (Original)** | 76,736 | 365 | 77,101 | 210.2 : 1 (Imbalanced) |
 | **MetroPT-2** | **Train (Balanced)** | **365** | **365** | **730** | **1.0 : 1 (Balanced)** |
 | **MetroPT-2** | **Val (Natural)** | 17,783 | 0 | 17,783 | Baseline Clean |
