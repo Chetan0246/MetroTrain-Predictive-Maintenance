@@ -21,7 +21,7 @@ Following the implementation of the **Dual-Evaluation Framework** and **Validati
 | **1** | Benchmark Metrics Verification | **PASS** | All 6 reported benchmark rows match the saved experiment JSON outputs byte-for-byte. MetroPT-3: TCN PR-AUC 0.1939, GRU 0.1830, LSTM 0.1783. MetroPT-2: GRU PR-AUC 0.9673, LSTM 0.9669, TCN 0.9543. |
 | **2** | Chronological Splits & Preprocessing Leakage | **PASS** | Splits are strictly chronological (Train 65–70%, Val 15%, Test 15–20%). `StandardScaler` parameters (mean and std) fitted solely on training data. Sequence sliding windows are generated strictly within split boundaries. |
 | **3** | MetroPT-3 Cross-Fault Generalization | **PASS** | Verified: Train split contains Air Leaks 1 & 2 (pneumatic system); Test split contains Oil Leak 3 (lubrication/thermal system). Out-of-distribution fault mode shift rigorously documented. Methodological limitation noted: single test incident ($N=1$). |
-| **4** | MetroPT-3 Recall & Threshold Sensitivity | **PASS** | Proven: Models output well-calibrated relative anomaly scores. Calibrating thresholds strictly on healthy validation data ($q_{90}$) recovers substantial recall: **GRU achieves Recall 35.02% (F1=0.2403)** and **LSTM achieves Recall 31.35% (F1=0.2214)**. |
+| **4** | MetroPT-3 Recall & Threshold Sensitivity | **PASS** | Proven: Models output well-calibrated relative anomaly scores for Task 1 active fault monitoring. Calibrating thresholds strictly on healthy validation data ($q_{90}$) recovers substantial recall across the 3,378 active-fault test population: **GRU achieves Recall 35.02% (F1=0.2403)** and **LSTM achieves Recall 31.35% (F1=0.2214)**. |
 | **5** | MetroPT-2 Dissection (Dual Framework) | **PASS** | **Task 1** (Active Fault State Monitoring): PR-AUC = 0.9673 on the full 3-day outage.<br/>**Task 2** (Pure Anticipatory Warning): PR-AUC = 0.4335 for GRU and 0.4026 for LSTM (active failure excluded, 0.60% test prevalence). 49.59% precision explained via base-rate prevalence. |
 | **6** | Genuine Samples & Class Counts Audit | **PASS** | All 12 CSV sample rows verified in raw CSV files (`dataset_train.csv` and `MetroPT2.csv`) via exact substring match. Timestep and window counts match parquet partitions exactly. |
 | **7** | Scientific Claims & Qualified Conclusions | **PASS** | Causal or definitive claims (e.g., 'proves the value of TCN') replaced with qualified empirical conclusions. Active fault monitoring and anticipatory early warning strictly separated throughout abstract, results, discussion, and conclusion. |
@@ -59,7 +59,10 @@ Following the implementation of the **Dual-Evaluation Framework** and **Validati
 
 ---
 
-## 2. Validation-Calibrated Operating Thresholds Verification (MetroPT-3)
+## 2. Task 1 Operating Threshold Calibration Verification (Active Fault Detection — MetroPT-3)
+
+> [!IMPORTANT]
+> **Operational Scope Distinction**: Verified that the threshold calibration evaluation corresponds strictly to **Task 1: Active Fault Detection & State Monitoring** across the full failure event population ($N_{\text{pos}} = 3,378$ windows, comprising 120 warning windows and 3,258 active outage windows). It evaluates whether validation quantile calibration can recover active fault identification under an out-of-distribution fault mode (oil leak), distinct from Task 2 which evaluates solely on the 120 pre-failure warning windows.
 
 Operating thresholds were calibrated strictly on the **healthy validation partition** without observing test labels. They were evaluated once on the held-out test set:
 

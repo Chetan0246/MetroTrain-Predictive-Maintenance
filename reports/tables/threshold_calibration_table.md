@@ -1,7 +1,10 @@
-# Validation-Calibrated Operating Thresholds for MetroPT-3 (Out-of-Distribution Transfer)
+# Task 1 Operating Threshold Calibration: Active Fault Detection & State Monitoring (MetroPT-3)
 
-> [!NOTE]
-> **Calibration Procedure**: Operating thresholds were chosen strictly using **unsupervised quantiles on the healthy validation set** ($q_{90}, q_{95}, q_{98}$) without observing test labels. They were evaluated once on the held-out test set to demonstrate how threshold calibration resolves the recall collapse observed at the arbitrary default boundary $\tau=0.50$.
+> [!IMPORTANT]
+> **Operational Scope: Task 1 — Active Fault Detection & State Monitoring**  
+> The reported recall and predicted alarm counts in this calibration table correspond strictly to **Task 1: Active Fault Detection & State Monitoring**, evaluating the full failure event population ($N_{\text{pos}} = 3,378$ positive windows across both the 2-hour pre-failure lead window and the active oil leak outage, alongside 23,547 normal windows). This must NOT be confused with **Task 2: Anticipatory Pre-Failure Warning**, which evaluates purely on the 120 pre-failure warning windows while explicitly excluding the ongoing breakdown.
+> 
+> **Calibration Procedure**: Operating thresholds were chosen strictly using **unsupervised quantiles on the healthy validation set** ($q_{90}, q_{95}, q_{98}$) without observing test labels. Evaluating them on the held-out test set demonstrates how validation-calibrated operating points resolve the recall collapse observed at the arbitrary default boundary $\tau=0.50$.
 
 | Model | Operating Point | Validation Threshold ($\tau$) | Target Validation FPR | Measured Test FPR | Test Precision | Test Recall | Test F1-Score | Predicted Alarm Windows |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |

@@ -246,7 +246,11 @@ flowchart TD
 
 ---
 
-### Validation-Calibrated Operating Thresholds for MetroPT-3
+### Task 1 Threshold Calibration: Active Fault Detection & State Monitoring (MetroPT-3)
+
+> [!IMPORTANT]
+> **Operational Scope: Task 1 — Active Fault Detection & State Monitoring**  
+> The reported recall and predicted alarm counts correspond strictly to **Task 1 (Active Fault State Monitoring)**, evaluating the full failure event population ($N_{\text{pos}} = 3,378$ positive windows across both the 2-hour pre-failure lead window and the active oil leak outage, alongside 23,547 normal windows). This must NOT be confused with **Task 2 (Anticipatory Pre-Failure Warning)**, which evaluates purely on the 120 pre-failure warning windows while explicitly excluding the ongoing breakdown.
 
 | Model | Operating Point | Validation Threshold ($\tau$) | Target Validation FPR | Measured Test FPR | Test Precision | Test Recall | Test F1-Score | Predicted Alarm Windows |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -297,7 +301,7 @@ In MetroPT-3, the training partition contained **Air Leak** failures (pneumatic 
 - In Task 1, **TCN achieved the highest PR-AUC (0.1939)** and was the only architecture to achieve positive recall (1.51%) and notable precision (41.46%) at the default $\tau=0.50$. The empirical evidence indicates that dilated causal convolutions may be better suited for multi-scale temporal pattern recognition under the observed distribution shift than recurrent baselines, although overall cross-fault transfer remains fundamentally limited across all tested models.
 
 ### Finding 3: Validation-Calibrated Operating Thresholds
-The audit proved that the zero-recall phenomenon in MetroPT-3 was an artifact of testing an uncalibrated fixed boundary ($\tau=0.50$) on an out-of-distribution fault. By selecting thresholds based on validation false positive budgets ($q_{90}, q_{95}, q_{98}$), **LSTM recovered 31.4% recall (F1=0.2214)** and **GRU recovered 35.0% recall (F1=0.2403)** on the oil leak.
+The audit proved that the zero-recall phenomenon in MetroPT-3 was an artifact of testing an uncalibrated fixed boundary ($\tau=0.50$) on an out-of-distribution fault. By selecting thresholds based on validation false positive budgets ($q_{90}, q_{95}, q_{98}$), **LSTM recovered 31.4% recall (F1=0.2214)** and **GRU recovered 35.0% recall (F1=0.2403)** on the oil leak under Task 1 active fault monitoring (evaluating across the full 3,378 failure event windows, in contrast to Task 2 which tests purely on the 120 pre-failure warning windows).
 - **Validation Target FPR vs. Measured Test FPR**: While validation quantiles targeted a 2.0% FPR at $q_{98}$, the measured test FPR increased to **7.3%–8.2%**. This drift reflects seasonal temperature increases between April (validation) and late May/early June (test), which elevated baseline compressor operating temperatures.
 
 ### Finding 4: Methodological Limitations of Available Documented Events
