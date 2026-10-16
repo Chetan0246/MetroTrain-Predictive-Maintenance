@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# IDEs & OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+.pytest_cache/
+
+# Large raw datasets (> 1GB raw CSV files)
+data/raw/metropt3/*.csv
+data/raw/metropt2/*.csv
+data/raw/*.csv
+data/raw/*.zip
+data/raw/*.tar.gz
+!data/raw/metropt3/.gitkeep
+!data/raw/metropt2/.gitkeep
+
+# Temporary / Scratch
+scratch/
+*.tmp
+*.log

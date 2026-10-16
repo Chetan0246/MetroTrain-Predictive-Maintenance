@@ -1,0 +1,63 @@
+# Configuration for MetroPT-2 (Dataset 2)
+dataset_name: "metropt2"
+raw_data_path: "data/raw/metropt2/MetroPT2.csv"
+processed_dir: "data/processed/metropt2"
+
+# Chronological split ratios
+train_ratio: 0.70
+val_ratio: 0.15
+test_ratio: 0.15
+
+# Resampling & Windowing parameters
+resample_interval: "10s"  # Downsampled from millisecond resolution to regular 10s intervals
+window_size: 60           # 60 timesteps = 10 minutes of operational telemetry
+step_size: 6              # 6 timesteps stride = 1 minute step between windows
+lead_time_steps: 720      # 720 timesteps = 2 hours early warning horizon prior to failure
+
+# Selected features (excluding raw IDs, timestamp, and target labels)
+sensor_features:
+  - "TP2"
+  - "TP3"
+  - "H1"
+  - "DV_pressure"
+  - "Reservoirs"
+  - "Oil_temperature"
+  - "Flowmeter"
+  - "Motor_current"
+  - "COMP"
+  - "DV_eletric"
+  - "Towers"
+  - "MPG"
+  - "LPS"
+  - "Pressure_switch"
+  - "Oil_level"
+  - "Caudal_impulses"
+
+# Model hyperparameters
+model_params:
+  lstm:
+    hidden_dim: 64
+    num_layers: 2
+    dropout: 0.2
+    learning_rate: 0.001
+    batch_size: 128
+    epochs: 15
+  gru:
+    hidden_dim: 64
+    num_layers: 2
+    dropout: 0.2
+    learning_rate: 0.001
+    batch_size: 128
+    epochs: 15
+  tcn:
+    num_channels: [32, 64, 128]
+    kernel_size: 3
+    dropout: 0.2
+    learning_rate: 0.001
+    batch_size: 128
+    epochs: 15
+
+# Training execution
+random_seed: 42
+device: "cpu"
+class_weight_strategy: "balanced"  # Applied via BCEWithLogitsLoss pos_weight on training split only
