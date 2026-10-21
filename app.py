@@ -1,7 +1,6 @@
 """MetroTrain Predictive Maintenance - Interactive Web Diagnostic Dashboard.
 
 Author: Moorthy Chetan (Reg No: 24BIT0246)
-Institution: Vellore Institute of Technology (VIT)
 Academic Year: 2026-2027
 Project: Predictive Maintenance in Metro Trains Using Machine Learning and Deep Learning
 """
@@ -214,9 +213,7 @@ with st.sidebar:
     st.markdown("""
     <div class="student-badge">
         <strong>Student:</strong> Moorthy Chetan<br>
-        <strong>Reg No:</strong> <code>24BIT0246</code><br>
-        <strong>Institution:</strong> VIT<br>
-        <strong>Review:</strong> Final Capstone Evaluation
+        <strong>Reg No:</strong> <code>24BIT0246</code>
     </div>
     """, unsafe_allow_html=True)
     
