@@ -225,8 +225,7 @@ with st.sidebar:
             "📊 Telemetry Physics Explorer",
             "🧠 Live Neural Inference Demo",
             "⚖️ Dual-Evaluation Benchmarks",
-            "🎛️ Threshold Calibration Simulator",
-            "🎓 Viva Defense & Technical FAQ"
+            "🎛️ Threshold Calibration Simulator"
         ],
         index=0
     )
@@ -638,55 +637,4 @@ elif app_mode == "🎛️ Threshold Calibration Simulator":
         - **Zero Test Leakage**: The threshold $q_{{90}}$ is computed solely from the $90^{{th}}$ percentile of clean validation baseline predictions:
         $$\\tau = \\text{{Quantile}}\\left(P(\\hat{{y}} = 1 \\mid \\mathcal{{D}}_{{\\text{{val, clean}}}}, 0.90\\right)$$
         No test labels were ever observed during calibration.
-        """)
-
-# -----------------------------------------------------------------------------
-# Module 6: Viva Defense & Technical FAQ
-# -----------------------------------------------------------------------------
-elif app_mode == "🎓 Viva Defense & Technical FAQ":
-    st.markdown('<p class="main-title">🎓 Viva Voce & Technical Defense Guide</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sub-title">Direct spoken scripts and mathematical justifications for professor evaluation</p>', unsafe_allow_html=True)
-    
-    with st.expander("❓ 1. Why do you use PR-AUC instead of ROC-AUC?", expanded=True):
-        st.markdown("""
-        **Spoken Script:**
-        > *"In real-world metro operations, sensor data has extreme class imbalance (e.g., 99.49% normal vs 0.51% failure in MetroPT-2 Task 2). 
-        > ROC-AUC plots True Positive Rate against False Positive Rate:
-        > $$\\text{FPR} = \\frac{\\text{FP}}{\\text{FP} + \\text{TN}}$$
-        > Because True Negatives (TN) exceed 23,000, the denominator is overwhelmingly huge. Even if the model generates hundreds of false alarms, FPR remains near zero, creating an **optical illusion of 99% ROC-AUC**. 
-        > In contrast, Precision-Recall AUC replaces TN with Precision:
-        > $$\\text{Precision} = \\frac{\\text{TP}}{\\text{TP} + \\text{FP}}$$
-        > PR-AUC penalizes every single false alarm directly, making it the only mathematically trustworthy metric for severe anomaly imbalance."*
-        """)
-        
-    with st.expander("❓ 2. Why did you use strict chronological splitting instead of random train-test split?"):
-        st.markdown("""
-        **Spoken Script:**
-        > *"Standard random shuffling (`train_test_split(shuffle=True)`) creates catastrophic **temporal lookahead leakage**. 
-        > Because sensor readings are taken every 10 seconds, consecutive timesteps share strong autocorrelation. If you shuffle, the model peeks at $t-10\\text{s}$ and $t+10\\text{s}$ to interpolate timestep $t$. 
-        > That produces an artificial 99.9% accuracy in the lab that collapses in production. We partitioned strictly chronologically—training on past operating months, tuning on recent clean operations, and testing on future unseen failure events—mirroring real railway deployment."*
-        """)
-        
-    with st.expander("❓ 3. Why is your training set balanced 1:1, but your test set left imbalanced?"):
-        st.markdown("""
-        **Spoken Script:**
-        > *"If we train on raw 99.5% normal data, the neural network's cross-entropy loss gradients quickly collapse to predicting 'normal' every time, learning zero discriminative failure features. 
-        > Balancing training windows 1:1 via normal sequence undersampling forces the gradient descent optimizer to give equal weight to failure dynamics. 
-        > However, the test partition must never be balanced—it must remain at its natural real-world imbalance so we can measure authentic False Positive rates and precision."*
-        """)
-        
-    with st.expander("❓ 4. Why did MetroPT-3 have 0.00 recall at threshold tau = 0.50?"):
-        st.markdown("""
-        **Spoken Script:**
-        > *"Because of an out-of-distribution failure mode shift. MetroPT-3 training data contained only pneumatic Air Leaks (F1, F2), whereas the held-out test data contained an unobserved Lubrication Oil Leak (F3). 
-        > Because the model had never seen oil leak thermal signatures during training, its predicted anomaly probabilities peaked between 0.15 and 0.35—never reaching the arbitrary 0.50 cutoff. 
-        > By calibrating the threshold using the 90th percentile of clean validation predictions ($q_{90} = 0.0008$), the recall immediately rose from 0.00 to 0.73 without any test set leakage."*
-        """)
-        
-    with st.expander("❓ 5. What are the 10-minute sliding window parameters (W=60, S=6)?"):
-        st.markdown("""
-        **Spoken Script:**
-        > *"Raw data was resampled to 10-second intervals. A window size $W = 60$ captures $60 \\times 10\\text{s} = 600\\text{s} = 10\\text{ minutes}$ of telemetry history. 
-        > In pneumatic thermodynamics, a compressor anomaly is not an instantaneous single-point spike; it is a gradual degradation in pressure buildup rate and duty cycle over multiple compression cycles. 
-        > A 10-minute window provides sufficient temporal depth for recurrent LSTM and GRU gates to model the rate of change."*
         """)
