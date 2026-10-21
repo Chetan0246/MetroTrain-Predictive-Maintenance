@@ -1,10 +1,15 @@
 """Model architectures (LSTM, GRU, TCN) and training execution pipeline."""
 
+import sys
 import argparse
 import json
 import time
 from pathlib import Path
 from typing import Dict, Any, Tuple
+
+# Ensure project root is in sys.path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 import numpy as np
 import pandas as pd
 import torch
