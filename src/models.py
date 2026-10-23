@@ -349,6 +349,63 @@ class TransformerEncoderClassifier(nn.Module):
         return logits
 
 
+class CNNTransformerClassifier(nn.Module):
+    """Hybrid CNN-Transformer: 1D CNN extracts local sensor motifs, output is stored in a variable 
+    and fed into next sequence/stage Transformers."""
+
+    def __init__(self, input_dim: int = 16, cnn_channels: int = 64, d_model: int = 64, nhead: int = 4, dropout: float = 0.2):
+        super().__init__()
+        self.name = "CNN-Transformer"
+        
+        # 1. 1D CNN Feature Extractor
+        self.conv = nn.Sequential(
+            nn.Conv1d(input_dim, cnn_channels, kernel_size=3, padding=1),
+            nn.BatchNorm1d(cnn_channels),
+            nn.ReLU(),
+            nn.Dropout(dropout)
+        )
+        
+        # Positional Encoding for temporal order
+        self.pos_encoder = PositionalEncoding(d_model)
+        
+        # 2. Sequence Transformer Stage 1
+        encoder_layer1 = nn.TransformerEncoderLayer(
+            d_model=d_model, nhead=nhead, dim_feedforward=d_model * 2, dropout=dropout, batch_first=True
+        )
+        self.transformer_stage1 = nn.TransformerEncoder(encoder_layer1, num_layers=1)
+        
+        # 3. Next Sequence Transformer Stage 2
+        encoder_layer2 = nn.TransformerEncoderLayer(
+            d_model=d_model, nhead=nhead, dim_feedforward=d_model * 2, dropout=dropout, batch_first=True
+        )
+        self.transformer_stage2 = nn.TransformerEncoder(encoder_layer2, num_layers=1)
+        
+        # 4. Classification Head
+        self.fc = nn.Sequential(
+            nn.Linear(d_model, 32),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(32, 1)
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        # Step 1: 1D CNN extracts local sensor feature representations
+        # Transpose to [B, channels, seq_len] for Conv1d, then back to [B, seq_len, channels]
+        cnn_output = self.conv(x.transpose(1, 2)).transpose(1, 2)
+        
+        # Step 2: Store CNN output in variable and pass with positional encoding into Transformer Stage 1
+        stage1_input = self.pos_encoder(cnn_output)
+        transformer_stage1_output = self.transformer_stage1(stage1_input)
+        
+        # Step 3: Pass stored intermediate output into next sequence Transformer Stage 2
+        transformer_stage2_output = self.transformer_stage2(transformer_stage1_output)
+        
+        # Step 4: Sequence temporal pooling & final classification logit
+        pooled_features = transformer_stage2_output.mean(dim=1)
+        logits = self.fc(pooled_features).squeeze(-1)
+        return logits
+
+
 # -----------------------------------------------------------------------------
 # 8. Temporal Fusion Transformer (TFT)
 # -----------------------------------------------------------------------------
@@ -562,6 +619,7 @@ MODEL_REGISTRY = {
     "bilstm": BiLSTMClassifier,
     "cnn_lstm": CNNLSTMClassifier,
     "cnn_bilstm_attn": CNNBiLSTMAttentionClassifier,
+    "cnn_transformer": CNNTransformerClassifier,
     "tcn": TCNClassifier,
     "transformer": TransformerEncoderClassifier,
     "tft": TemporalFusionTransformerClassifier,
@@ -575,6 +633,7 @@ ALGORITHM_DISPLAY_NAMES = {
     "bilstm": "3. BiLSTM (Bidirectional LSTM)",
     "cnn_lstm": "4. CNN-LSTM (1D Convolution + LSTM)",
     "cnn_bilstm_attn": "5. CNN-BiLSTM with Attention",
+    "cnn_transformer": "CNN-Transformer (CNN -> Var -> Next Seq Transformers)",
     "tcn": "6. Temporal Convolutional Network (TCN)",
     "transformer": "7. Transformer Encoder",
     "tft": "8. Temporal Fusion Transformer (TFT)",
