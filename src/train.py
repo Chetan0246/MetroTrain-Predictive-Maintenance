@@ -19,6 +19,13 @@ from sklearn.metrics import precision_recall_curve, auc, f1_score, precision_sco
 
 from src.windowing import SequenceWindowDataset
 from src.preprocessing import FEATURE_COLS
+from src.models import (
+    MODEL_REGISTRY,
+    LSTMClassifier, GRUClassifier, BiLSTMClassifier, CNNLSTMClassifier,
+    CNNBiLSTMAttentionClassifier, TCNClassifier, TransformerEncoderClassifier,
+    TemporalFusionTransformerClassifier, LSTMAutoencoder, VariationalAutoencoder,
+    ChausalConv1d, TemporalBlock
+)
 
 # ---------------------------------------------------------------------------
 # 1. Architecture Definitions
@@ -242,16 +249,12 @@ def run_experiment(
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
     
-    # Instantiate Model
+    # Instantiate Model from the 10 supported algorithms
     input_dim = len(FEATURE_COLS)
-    if model_type == "lstm":
-        model = LSTMClassifier(input_dim=input_dim, hidden_dim=64, num_layers=2, dropout=0.2)
-    elif model_type == "gru":
-        model = GRUClassifier(input_dim=input_dim, hidden_dim=64, num_layers=2, dropout=0.2)
-    elif model_type == "tcn":
-        model = TCNClassifier(input_dim=input_dim, num_channels=[32, 64, 128], kernel_size=3, dropout=0.2)
+    if model_type in MODEL_REGISTRY:
+        model = MODEL_REGISTRY[model_type]()
     else:
-        raise ValueError(f"Unknown model_type: {model_type}")
+        raise ValueError(f"Unknown model_type: {model_type}. Supported: {list(MODEL_REGISTRY.keys())}")
         
     model = model.to(device)
     criterion = nn.BCEWithLogitsLoss()
@@ -328,23 +331,27 @@ def run_experiment(
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Train LSTM, GRU, or TCN on MetroPT datasets.")
+    parser = argparse.ArgumentParser(description="Train any of the 10 deep learning sequence algorithms on MetroPT datasets.")
     parser.add_argument("--dataset", type=str, required=True, choices=["metropt3", "metropt2"])
-    parser.add_argument("--model", type=str, required=True, choices=["lstm", "gru", "tcn"])
+    parser.add_argument("--model", type=str, required=True, choices=list(MODEL_REGISTRY.keys()) + ["all"])
     parser.add_argument("--epochs", type=int, default=5)
     parser.add_argument("--batch_size", type=int, default=128)
     parser.add_argument("--lr", type=float, default=0.001)
     parser.add_argument("--balance_ratio", type=float, default=1.0)
     args = parser.parse_args()
     
-    run_experiment(
-        dataset_name=args.dataset,
-        model_type=args.model,
-        epochs=args.epochs,
-        batch_size=args.batch_size,
-        learning_rate=args.lr,
-        balance_ratio=args.balance_ratio
-    )
+    if args.model == "all":
+        from src.benchmark_all_10 import run_10_algorithm_benchmark
+        run_10_algorithm_benchmark(dataset_name=args.dataset, epochs=args.epochs, batch_size=args.batch_size)
+    else:
+        run_experiment(
+            dataset_name=args.dataset,
+            model_type=args.model,
+            epochs=args.epochs,
+            batch_size=args.batch_size,
+            learning_rate=args.lr,
+            balance_ratio=args.balance_ratio
+        )
 
 
 if __name__ == "__main__":

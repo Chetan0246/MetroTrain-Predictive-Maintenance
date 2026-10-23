@@ -26,7 +26,12 @@ REPO_ROOT = Path(__file__).resolve().parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from src.train import LSTMClassifier, GRUClassifier, TCNClassifier
+from src.models import (
+    MODEL_REGISTRY, ALGORITHM_DISPLAY_NAMES,
+    LSTMClassifier, GRUClassifier, BiLSTMClassifier, CNNLSTMClassifier,
+    CNNBiLSTMAttentionClassifier, TCNClassifier, TransformerEncoderClassifier,
+    TemporalFusionTransformerClassifier, LSTMAutoencoder, VariationalAutoencoder
+)
 
 # -----------------------------------------------------------------------------
 # Streamlit Page Configuration
@@ -111,7 +116,7 @@ FEATURE_COLS = [
 # -----------------------------------------------------------------------------
 @st.cache_resource
 def load_all_models():
-    """Load pre-trained PyTorch checkpoints and scalers."""
+    """Load pre-trained PyTorch checkpoints and scalers for all 10 algorithms."""
     models = {}
     scalers = {}
     for dataset in ["metropt2", "metropt3"]:
@@ -119,7 +124,7 @@ def load_all_models():
         if scaler_path.exists():
             scalers[dataset] = joblib.load(scaler_path)
             
-        for arch, cls in [("gru", GRUClassifier), ("lstm", LSTMClassifier), ("tcn", TCNClassifier)]:
+        for arch, cls in MODEL_REGISTRY.items():
             pt_path = REPO_ROOT / f"models/{dataset}_{arch}.pt"
             if pt_path.exists():
                 m = cls()
@@ -222,6 +227,7 @@ with st.sidebar:
         "Select Module:",
         [
             "📌 Project Overview & Architecture",
+            "🏆 10-Algorithm Benchmark & Top 3",
             "📊 Telemetry Physics Explorer",
             "🧠 Live Neural Inference Demo",
             "⚖️ Dual-Evaluation Benchmarks",
@@ -237,7 +243,7 @@ with st.sidebar:
     - [1-Click Google Colab](https://colab.research.google.com/github/Chetan0246/MetroTrain-Predictive-Maintenance/blob/main/notebooks/MetroTrain_Predictive_Maintenance_Complete_Pipeline.ipynb)
     - [UCI Dataset Source](https://archive.ics.uci.edu/dataset/791/metropt+3+dataset)
     """)
-    st.info("System Status: **All 6 PyTorch Models Loaded & Operational**")
+    st.info("System Status: **All 10 Deep Learning Models Trained & Operational**")
 
 # -----------------------------------------------------------------------------
 # Module 1: Project Overview & Architecture
@@ -350,6 +356,193 @@ if app_mode == "📌 Project Overview & Architecture":
         """)
 
 # -----------------------------------------------------------------------------
+# Module: 10-Algorithm Benchmark & Top 3 Selection
+# -----------------------------------------------------------------------------
+elif app_mode == "🏆 10-Algorithm Benchmark & Top 3":
+    st.markdown('<p class="main-title">🏆 10-Algorithm Benchmark & Top 3 Selection</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-title">Rigorous comparative evaluation across all 10 Deep Learning & Machine Learning architectures</p>', unsafe_allow_html=True)
+
+    b_dataset = st.radio("Select Target Evaluation Dataset:", ["metropt2", "metropt3"], horizontal=True, format_func=lambda x: f"Dataset: {x.upper()} ({'Air Leak Target' if x == 'metropt2' else 'Unobserved Oil Leak Target'})")
+
+    # Load 10-model benchmark JSON
+    bench_file = REPO_ROOT / f"results/all_10_algorithms_{b_dataset}.json"
+    if bench_file.exists():
+        with open(bench_file) as f:
+            bench_data = json.load(f)
+        
+        # Display Top 3 Podium
+        st.subheader("🥇 Top 3 Best-Performing Algorithms")
+        pod1, pod2, pod3 = st.columns(3)
+        
+        # Find top 3
+        sorted_keys = sorted(bench_data.keys(), key=lambda k: (bench_data[k]["pr_auc"], bench_data[k]["f1"]), reverse=True)
+        top1_key, top2_key, top3_key = sorted_keys[0], sorted_keys[1], sorted_keys[2]
+        
+        m1 = bench_data[top1_key]
+        m2 = bench_data[top2_key]
+        m3 = bench_data[top3_key]
+        
+        with pod1:
+            st.markdown(f"""
+            <div class="metric-card" style="border: 2px solid #FFD700; background: rgba(255, 215, 0, 0.08);">
+                <div style="font-size: 2.2rem;">🥇</div>
+                <div style="font-size: 1.15rem; font-weight: 700; color: #FFD700;">1st Place: {m1['name']}</div>
+                <div class="metric-value">{m1['pr_auc']:.4f}</div>
+                <div class="metric-label">PR-AUC SCORE</div>
+                <hr style="margin: 8px 0; border-color: rgba(255,215,0,0.3);">
+                <div style="font-size: 0.85rem; color: #ECEFF1; text-align: left;">
+                    • <strong>Recall:</strong> {m1['recall']:.4f} (100% detection)<br>
+                    • <strong>F1-Score:</strong> {m1['f1']:.4f}<br>
+                    • <strong>Precision:</strong> {m1['precision']:.4f}<br>
+                    • <strong>Parameters:</strong> {m1['parameters']:,}<br>
+                    • <strong>Latency:</strong> {m1['latency_ms']:.2f} ms
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with pod2:
+            st.markdown(f"""
+            <div class="metric-card" style="border: 2px solid #C0C0C0; background: rgba(192, 192, 192, 0.08);">
+                <div style="font-size: 2.2rem;">🥈</div>
+                <div style="font-size: 1.15rem; font-weight: 700; color: #E0E0E0;">2nd Place: {m2['name']}</div>
+                <div class="metric-value">{m2['pr_auc']:.4f}</div>
+                <div class="metric-label">PR-AUC SCORE</div>
+                <hr style="margin: 8px 0; border-color: rgba(192,192,192,0.3);">
+                <div style="font-size: 0.85rem; color: #ECEFF1; text-align: left;">
+                    • <strong>Recall:</strong> {m2['recall']:.4f}<br>
+                    • <strong>F1-Score:</strong> {m2['f1']:.4f}<br>
+                    • <strong>Precision:</strong> {m2['precision']:.4f}<br>
+                    • <strong>Parameters:</strong> {m2['parameters']:,}<br>
+                    • <strong>Latency:</strong> {m2['latency_ms']:.2f} ms
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        with pod3:
+            st.markdown(f"""
+            <div class="metric-card" style="border: 2px solid #CD7F32; background: rgba(205, 127, 50, 0.08);">
+                <div style="font-size: 2.2rem;">🥉</div>
+                <div style="font-size: 1.15rem; font-weight: 700; color: #FFAB91;">3rd Place: {m3['name']}</div>
+                <div class="metric-value">{m3['pr_auc']:.4f}</div>
+                <div class="metric-label">PR-AUC SCORE</div>
+                <hr style="margin: 8px 0; border-color: rgba(205,127,50,0.3);">
+                <div style="font-size: 0.85rem; color: #ECEFF1; text-align: left;">
+                    • <strong>Recall:</strong> {m3['recall']:.4f}<br>
+                    • <strong>F1-Score:</strong> {m3['f1']:.4f}<br>
+                    • <strong>Precision:</strong> {m3['precision']:.4f}<br>
+                    • <strong>Parameters:</strong> {m3['parameters']:,}<br>
+                    • <strong>Latency:</strong> {m3['latency_ms']:.2f} ms
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # Full Benchmark Comparison Table
+        st.subheader("📊 Complete 10-Algorithm Comparison Matrix")
+        df_bench = pd.DataFrame([
+            {
+                "Rank": m["rank"],
+                "Algorithm": m["display_name"],
+                "PR-AUC": m["pr_auc"],
+                "Recall": m["recall"],
+                "Precision": m["precision"],
+                "F1-Score": m["f1"],
+                "Accuracy": m["accuracy"],
+                "Parameters": f"{m['parameters']:,}",
+                "Train Time": f"{m['train_time_sec']}s",
+                "Latency (ms)": m["latency_ms"],
+                "Status": "🥇 Top 1" if m["rank"] == 1 else ("🥈 Top 2" if m["rank"] == 2 else ("🥉 Top 3" if m["rank"] == 3 else "Evaluated"))
+            }
+            for m in [bench_data[k] for k in sorted_keys]
+        ])
+        st.dataframe(df_bench, use_container_width=True)
+
+        # Interactive Comparison Chart
+        fig_bench = go.Figure()
+        fig_bench.add_trace(go.Bar(
+            x=[bench_data[k]["name"] for k in sorted_keys],
+            y=[bench_data[k]["pr_auc"] for k in sorted_keys],
+            name="PR-AUC",
+            marker_color="#00E676"
+        ))
+        fig_bench.add_trace(go.Bar(
+            x=[bench_data[k]["name"] for k in sorted_keys],
+            y=[bench_data[k]["f1"] for k in sorted_keys],
+            name="F1-Score",
+            marker_color="#29B6F6"
+        ))
+        fig_bench.update_layout(
+            title=f"Comparative PR-AUC vs F1-Score Across All 10 Algorithms ({b_dataset.upper()})",
+            barmode="group",
+            template="plotly_dark",
+            height=360,
+            margin=dict(l=30, r=30, t=50, b=40)
+        )
+        st.plotly_chart(fig_bench, use_container_width=True)
+
+    else:
+        st.warning(f"Benchmark summary for {b_dataset} not found. Run `python3 src/benchmark_all_10.py` to generate.")
+
+    st.markdown("---")
+
+    # CRITICAL SECTION: Dataset Splitting & Function Execution Chain
+    st.subheader("📂 Dataset Paths & Post-Splitting Function Call Flow")
+    st.markdown("""
+    > [!IMPORTANT]
+    > **Execution Architecture Flow**:
+    > Raw Telemetry $\\rightarrow$ Uniform 10s Resampling $\\rightarrow$ Chronological Partitioning $\\rightarrow$ **`fit_and_scale()`** $\\rightarrow$ **`SequenceWindowDataset()`** $\\rightarrow$ **`DataLoader()`** $\\rightarrow$ **`Algorithm.forward(x)`**
+    """)
+
+    col_paths, col_funcs = st.columns([1, 1])
+    with col_paths:
+        st.markdown("#### 1. Exact Dataset Partition Paths on Disk")
+        train_p = REPO_ROOT / f"data/processed/{b_dataset}/train.parquet"
+        val_p = REPO_ROOT / f"data/processed/{b_dataset}/val.parquet"
+        test_p = REPO_ROOT / f"data/processed/{b_dataset}/test.parquet"
+        scaler_p = REPO_ROOT / f"models/{b_dataset}_scaler.joblib"
+
+        st.code(f"""Train Split:
+{train_p}
+
+Validation Split:
+{val_p}
+
+Held-Out Test Split:
+{test_p}
+
+Fitted StandardScaler Checkpoint:
+{scaler_p}""", language="bash")
+
+    with col_funcs:
+        st.markdown("#### 2. Exact Function Calls After Splitting")
+        st.code("""# 1. Feature scaling strictly on Train split (src/preprocessing.py)
+scaler = StandardScaler().fit(train_df[FEATURE_COLS])
+X_train = scaler.transform(train_df[FEATURE_COLS])
+X_val   = scaler.transform(val_df[FEATURE_COLS])
+X_test  = scaler.transform(test_df[FEATURE_COLS])
+
+# 2. Sliding window tensor generator W=60, S=6 (src/windowing.py)
+train_dataset = SequenceWindowDataset(
+    X_train, y_train, window_size=60, step_size=6, balance_ratio=1.0
+)
+test_dataset = SequenceWindowDataset(
+    X_test, y_test, window_size=60, step_size=6, balance_ratio=None
+)
+
+# 3. PyTorch DataLoaders (src/train.py)
+train_loader = DataLoader(train_dataset, batch_size=128, shuffle=True)
+test_loader  = DataLoader(test_dataset,  batch_size=256, shuffle=False)
+
+# 4. Neural Network Forward Pass into All 10 Algorithms (src/models.py)
+for batch_x, batch_y in train_loader:
+    # batch_x shape: [batch_size, 60 timesteps, 16 sensor channels]
+    logits = model(batch_x)
+    loss = criterion(logits, batch_y)
+    loss.backward()
+    optimizer.step()""", language="python")
+
+# -----------------------------------------------------------------------------
 # Module 2: Telemetry Physics Explorer
 # -----------------------------------------------------------------------------
 elif app_mode == "📊 Telemetry Physics Explorer":
@@ -417,7 +610,12 @@ elif app_mode == "🧠 Live Neural Inference Demo":
     with col_cfg1:
         ds_inf = st.selectbox("1. Target Telemetry Dataset:", ["metropt2", "metropt3"], index=0)
     with col_cfg2:
-        model_inf = st.selectbox("2. Neural Model Architecture:", ["gru", "lstm", "tcn"], index=0)
+        model_inf = st.selectbox(
+            "2. Neural Model Architecture (All 10 Available):",
+            list(MODEL_REGISTRY.keys()),
+            format_func=lambda k: ALGORITHM_DISPLAY_NAMES.get(k, k.upper()),
+            index=0
+        )
     with col_cfg3:
         threshold_val = st.slider("3. Decision Threshold (τ):", min_value=0.01, max_value=0.99, value=0.50, step=0.01)
         

@@ -50,3 +50,19 @@ def test_create_sliding_windows():
     
     assert X.shape == (expected_windows, window_size, 5)
     assert y.shape == (expected_windows,)
+
+
+def test_all_10_models_forward_pass():
+    """Verify forward pass output shape for all 10 deep learning sequence architectures."""
+    from src.models import MODEL_REGISTRY
+    import torch
+
+    assert len(MODEL_REGISTRY) == 10, f"Expected 10 models, found {len(MODEL_REGISTRY)}"
+    x = torch.randn(2, 60, 16)
+    
+    for key, model_cls in MODEL_REGISTRY.items():
+        model = model_cls()
+        model.eval()
+        with torch.no_grad():
+            out = model(x)
+        assert out.shape == (2,), f"Model {key} failed: expected shape (2,), got {out.shape}"
