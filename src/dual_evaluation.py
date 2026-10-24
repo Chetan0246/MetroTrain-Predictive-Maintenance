@@ -331,11 +331,12 @@ def run_dual_evaluation():
     plt.close()
     print(f"Saved subclass composition plot to {fig_subclass_path}")
 
-    # Copy updated plots to artifact directory for rendering
+    # Copy updated plots to artifact directory for rendering if directory exists
     import shutil
     artifact_dir = Path("/home/chetan/.gemini/antigravity-cli/brain/f8454160-0e22-4de3-ad7d-1a07a0b9d2b6")
-    for fpath in [fig_pr_path, fig_thresh_path, fig_subclass_path]:
-        shutil.copy(fpath, artifact_dir / fpath.name)
+    if artifact_dir.exists():
+        for fpath in [fig_pr_path, fig_thresh_path, fig_subclass_path]:
+            shutil.copy(fpath, artifact_dir / fpath.name)
         
     print("Dual-evaluation execution and figure generation successfully finished.")
 
