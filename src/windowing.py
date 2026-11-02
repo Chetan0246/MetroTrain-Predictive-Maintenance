@@ -1,6 +1,6 @@
 """PyTorch sequence dataset and windowing utilities for time-series modeling."""
 
-from typing import Tuple, List, Optional
+from typing import Tuple, List, Optional, Dict
 import numpy as np
 import pandas as pd
 import torch
