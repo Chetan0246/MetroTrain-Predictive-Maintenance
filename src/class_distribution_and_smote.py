@@ -93,14 +93,28 @@ def print_distribution_summary():
         # 3. SMOTE Demonstration on Training Data
         print(f"\n>>> 3. SMOTE ALGORITHM EXECUTION ON {ds.upper()} TRAINING DATA")
         print("-" * 85)
-        X_tr = tr[FEATURE_COLS].values
+        X_tr = tr[FEATURE_COLS].values.astype(np.float32)
         y_tr = tr.target.values
-        print(f"Before SMOTE -> Class 0: {(y_tr==0).sum():,} | Class 1: {(y_tr==1).sum():,} | Equal? NO")
+        total_c0 = int((y_tr == 0).sum())
+        total_c1 = int((y_tr == 1).sum())
+        print(f"Full Train Set Before SMOTE -> Class 0: {total_c0:,} | Class 1: {total_c1:,} | Equal? NO")
         
+        # In Google Colab (12GB RAM limit), generating 748,000 synthetic rows with k-NN exceeds RAM.
+        # We demonstrate live SMOTE execution on a 25,000 majority sample + all minority failures:
+        pos_idx = np.where(y_tr == 1)[0]
+        neg_idx = np.where(y_tr == 0)[0]
+        np.random.seed(42)
+        sampled_neg = np.random.choice(neg_idx, size=min(len(neg_idx), 25000), replace=False)
+        demo_idx = np.sort(np.concatenate([pos_idx, sampled_neg]))
+        X_demo, y_demo = X_tr[demo_idx], y_tr[demo_idx]
+
         smote = SMOTE(random_state=42)
-        X_smote, y_smote = smote.fit_resample(X_tr, y_tr)
-        print(f"After SMOTE  -> Class 0: {(y_smote==0).sum():,} | Class 1: {(y_smote==1).sum():,} | Equal? YES (1:1 Exactly)")
-        print(f"Total Rows After SMOTE: {len(y_smote):,} synthetic training records")
+        X_smote, y_smote = smote.fit_resample(X_demo, y_demo)
+        
+        c0_smote = int((y_smote == 0).sum())
+        c1_smote = int((y_smote == 1).sum())
+        print(f"Live SMOTE Execution Sample -> Class 0: {c0_smote:,} | Class 1: {c1_smote:,} | Equal? YES (1:1 Exactly!)")
+        print(f"Extrapolated Full Scale SMOTE -> Class 0: {total_c0:,} | Class 1: {total_c0:,} | Equal? YES (1:1 Exactly, {2*total_c0:,} rows)")
         print("=" * 85)
 
 if __name__ == "__main__":
