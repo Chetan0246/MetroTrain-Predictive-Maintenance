@@ -37,3 +37,8 @@ data/raw/*.tar.gz
 scratch/
 *.tmp
 *.log
+
+# Agent tooling metadata
+.agents/
+.claude/
+.~lock.*
