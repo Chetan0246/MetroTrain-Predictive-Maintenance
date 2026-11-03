@@ -1,0 +1,23 @@
+METRO TRAIN PREDICTIVE MAINTENANCE - OFFICIAL DATASET LINKS
+Student: Moorthy Chetan (24BIT0246) | VIT Vellore
+
+1. UCI Machine Learning Repository:
+   https://archive.ics.uci.edu/dataset/791/metropt+3+dataset
+
+2. Zenodo Open Science Repository (CERN):
+   https://zenodo.org/records/6854240
+   DOI: 10.5281/zenodo.6854240
+
+3. Kaggle Datasets:
+   https://www.kaggle.com/datasets/anthonytherrien/metropt-dataset-air-production-unit
+
+4. Nature Scientific Data Citation:
+   Veloso, B., Ribeiro, R. P., Pereira, P. M., & Gama, J. (2022).
+   "The MetroPT dataset for predictive maintenance."
+   Scientific Data, 9(1), 764.
+   https://doi.org/10.1038/s41597-022-01877-3
+
+5. Base Paper Reference:
+   Jakobs, M., Veloso, B., & Gama, J. (2026).
+   "Online failure prediction with interpretable rules on Metro do Porto telemetry."
+   International Journal of Data Science and Analytics.
