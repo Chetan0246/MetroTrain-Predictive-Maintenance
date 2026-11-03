@@ -73,13 +73,17 @@ If an evaluator spots any of the three minor discrepancies in the submitted PDF,
 
 ---
 
-## Part 3: Deep Learning Architectures (LSTM vs. GRU vs. TCN)
+## Part 3: Deep Learning Architectures & Benchmark Findings
 
-| Architecture | Model Configuration | MetroPT-2 (In-Distribution) | MetroPT-3 (Distribution Shift) | Engineering Strengths |
+| Architecture | Model Configuration | MetroPT-2 (Pneumatic Leaks) | MetroPT-3 (Unseen Oil Leaks) | Engineering Strengths & Operational Role |
 | :--- | :--- | :---: | :---: | :--- |
-| **GRU** | 2 layers, hidden 64, dropout 0.2 | **Rank 1** (PR-AUC 0.9673 Task 1; 0.4335 Task 2) | Rank 2 (PR-AUC 0.1830) | Faster convergence, fewer parameters than LSTM, optimal gating for cyclic pressure dynamics. |
-| **LSTM** | 2 layers, hidden 64, dropout 0.2 | **Rank 2** (PR-AUC 0.9669 Task 1; 0.4026 Task 2) | Rank 3 (PR-AUC 0.1783) | Effective cell state memory, slightly higher computational overhead. |
-| **TCN** | Dilated causal residual convs ($d \in \{1, 2, 4\}$, $k=3$) | Rank 3 (PR-AUC 0.9543 Task 1; 0.3644 Task 2) | **Rank 1** (PR-AUC 0.1939 Task 1) | **Only model with positive recall at $\tau=0.50$ on unseen oil leak**. Exponential receptive field without recurrent vanishing gradients. |
+| **VAE** | Latent dim 16, encoder-decoder MLP | **Rank 1 PR-AUC: 0.9833** (Recall: 1.0000) | PR-AUC: 0.1198 (Recall: 0.7380) | Top unsupervised anomaly separation; reconstruction loss smooth across thresholds. |
+| **LSTM Autoencoder** | Seq2Seq reconstruction, hidden 64 | **Rank 2 PR-AUC: 0.9833** (Recall: 1.0000) | PR-AUC: 0.1328 (Recall: 1.0000) | High unsupervised recall; effectively flags deviations in temporal pressure trajectories. |
+| **Temporal Fusion Transformer (TFT)** | Multi-head attention, GRN, gating | **Rank 3 PR-AUC: 0.9817** (F1: 0.9832) | PR-AUC: 0.1381 | **Top operational deployment fit**: 99.95% recall, 96.74% precision, 0.31 ms latency. |
+| **CNN-BiLSTM with Attention** | Conv1D + Bidirectional LSTM + Attn | **Rank 4 PR-AUC: 0.9787** (F1: 0.9830) | PR-AUC: 0.1217 | 100.00% recall with sub-millisecond edge latency (0.05 ms). |
+| **GRU** | 2 layers, hidden 64, dropout 0.2 | **Rank 9 PR-AUC: 0.9560** (**Top F1: 0.9842**) | PR-AUC: 0.1182 (Calibrated $q_{90}$: 35.02%) | Highest operational F1-score; fast training (0.86s) and inference (0.07 ms). |
+| **Transformer Encoder** | 2 self-attention layers, 4 heads | PR-AUC: 0.9475 (F1: 0.9830) | **Rank 1 PR-AUC: 0.1714** | **Top OOD transfer architecture**: Multi-head self-attention best captures unseen sensor shifts. |
+| **TCN** | Dilated causal residual convs ($d \in \{1, 2, 4\}$) | PR-AUC: 0.9599 (F1: 0.9832) | PR-AUC: 0.1378 (Calibrated $q_{90}$: 34.04%) | Exponential receptive field without recurrent vanishing gradients. |
 
 ### Key Talking Point on TCN:
 > *"TCN's dilated causal residual convolutions allow the network's receptive field to expand exponentially with depth without losing temporal ordering or suffering from recurrent gradient degradation. Under out-of-distribution transfer (MetroPT-3), TCN captured multi-scale thermodynamic anomalies that recurrent baselines missed."*

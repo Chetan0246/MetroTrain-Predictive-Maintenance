@@ -1,9 +1,8 @@
 # Predictive Maintenance in Metro Trains Using Machine Learning and Deep Learning Techniques
 
-**MOORTHY CHETAN [24BIT0246]
-moorthy.chetan2024@vitstudent.ac.in**
+**Author**: MOORTHY CHETAN [24BIT0246] | 
+ | moorthy.chetan2024@vitstudent.ac.in |
 
----
 
 ## Abstract
 
@@ -11,12 +10,9 @@ Project. Predictive maintenance for Air Production Units (APU) in passenger metr
 
 Base paper. Matthias Jakobs et al. (2026, International Journal of Data Science and Analytics) [1] and Bruno Veloso et al. (2022) [16] evaluate online rule induction (RIPPER, Decision Trees) and tree ensembles (Random Forest, XGBoost) on MetroPT telemetry. They report initial failure detection F1-scores of ~0.65 to 0.78, but exhibit high false alarm rates (precision < 50%) under streaming class imbalance (>98% normal operation) and vulnerability to sensor drift.
 
-Proposed method. We build an end-to-end predictive maintenance pipeline evaluating 10 Deep Learning architectures spanning four sequential paradigms: Recurrent Baselines (LSTM, GRU, BiLSTM), Hybrid Convolutions (CNN-LSTM, CNN-BiLSTM with Attention, TCN), Multi-Head Transformers (Transformer Encoder, Temporal Fusion Transformer), and Unsupervised Generative Latent Models (LSTM Autoencoder, Variational Autoencoder), accompanied by a custom multistage CNN-Transformer. On held-out chronological test sequences (23,668 sequences), Variational Autoencoder (VAE) and LSTM Autoencoder lead theoretical anomaly separation with a peak PR-AUC of 0.9833 (100% recall); Temporal Fusion Transformer (TFT) delivers the premier operational deployment fit with 0.9817 PR-AUC, 99.95% Recall, 96.74% Precision, and 0.9832 F1-Score; while CNN-BiLSTM with Attention achieves 100.00% Recall and 96.66% Precision with an edge inference latency of 0.05 ms.
+Proposed method. We build an end-to-end predictive maintenance pipeline evaluating 10 Deep Learning architectures spanning four sequential paradigms: Recurrent Baselines (LSTM, GRU, BiLSTM), Hybrid Convolutions (CNN-LSTM, CNN-BiLSTM with Attention, TCN), Multi-Head Transformers (Transformer Encoder, Temporal Fusion Transformer), and Unsupervised Generative Latent Models (LSTM Autoencoder, Variational Autoencoder), accompanied by a custom multistage CNN-Transformer. On held-out chronological test sequences (23,668 sequences), Variational Autoencoder (VAE) and LSTM Autoencoder lead theoretical anomaly separation with a peak PR-AUC of 0.9833 (100% recall); Temporal Fusion Transformer (TFT) delivers the premier operational deployment fit with 0.9817 PR-AUC, 99.95% Recall, 96.74% Precision, and 0.9832 F1-Score; GRU achieves the top operational F1-Score of 0.9842 with 100.00% Recall and 96.89% Precision; while CNN-BiLSTM with Attention achieves 100.00% Recall and 96.66% Precision with an edge inference latency of 0.05 ms.
 
 New features. (1) A 10-algorithm deep learning comparison suite across 4 sequential paradigms. (2) Dual-Evaluation framework isolating ongoing active fault state detection (Task 1) from 2-hour anticipatory pre-failure warning (Task 2). (3) Strict zero-leakage chronological partitioning (65/15/20 and 70/15/15) preserving temporal thermodynamic autocorrelation. (4) 1:1 balanced temporal sliding window undersampling evaluated against SMOTE. (5) Unsupervised validation-only quantile threshold calibration (q90, q95, q98) resolving out-of-distribution cross-dataset transfer recall collapse without test label exposure. (6) Sub-millisecond edge latency benchmarking (<0.5 ms per sequence).
-
-
----
 
 
 ## I. Introduction
@@ -54,42 +50,19 @@ The theoretical foundation of time-series predictive maintenance rests on extrac
 
 1. Recurrent Sequence Modeling (LSTM, GRU, BiLSTM): Standard Recurrent Neural Networks (RNNs) suffer from exponential gradient decay across long temporal sequences. The Long Short-Term Memory (LSTM) network [18] resolves this through a constant error carousel maintained by a dedicated cell state C_t regulated by three multiplicative affine gates:
 
-```text
-f_t = σ(W_f [h_{t-1}, x_t] + b_f)   (Forget Gate)
-  i_t = σ(W_i [h_{t-1}, x_t] + b_i),   ~{C}_t = tanh(W_c [h_{t-1}, x_t] + b_c)   (Input Gate)
-  C_t = f_t ⊙ C_{t-1} + i_t ⊙ ~{C}_t   (Cell State Update)
-  o_t = σ(W_o [h_{t-1}, x_t] + b_o),   h_t = o_t ⊙ tanh(C_t)   (Hidden State Output)
-```
-
 The Gated Recurrent Unit (GRU) [19] streamlines this architecture by coupling the forget and input gates into an update gate z_t and reset gate r_t, eliminating the separate cell state and reducing trainable parameter count by 25% while matching sequence memory retention. The Bidirectional LSTM (BiLSTM) executes parallel forward and backward recurrent sweeps, then concatenate their hidden-state vectors to capture precursor trends and subsequent pressure recovery signatures.
 
 2. Temporal Convolutional Networks (TCN): TCN architectures [20] replace sequential recurrences with 1D Dilated Causal Convolutions. Causality guarantees that a convolution kernel at time t depends only on inputs at or before t. The dilation factor doubles by layer (d = 2^i, for i = 0, 1, 2), the effective temporal receptive field expands to:
-
-```text
-Receptive field = 1 + 2(K - 1) × sum(2^i), for i = 0 to L - 1
-```
 
 Residual connections of the form y = activation(x + F(x)) ensure gradient flow across deep convolutional stacks, enabling parallelized processing across the entire sequence dimension without recurrent bottlenecks.
 
 3. Self-Attention & Transformers: Transformer architectures [21] eliminate recurrence entirely, relying on Multi-Head Self-Attention to map interactions across all sequence timesteps simultaneously. For an input matrix X with shape T × d, linear projections compute queries Q, keys K, and values V:
 
-```text
-Attention(Q, K, V) = softmax(QKᵀ / sqrt(d_k)) V
-```
-
 To inject temporal order awareness, sinusoidal positional encodings PE(pos, 2i) = sin(pos / 10000^(2i/d)) are added directly to input embeddings. The Temporal Fusion Transformer (TFT) [17] extends self-attention for heterogeneous industrial time-series through Gated Residual Networks (GRNs) and Variable Selection Networks (VSNs), which dynamically compute softmax attention weights across all 16 input telemetry channels, effectively pruning uninformative noise channels prior to temporal sequence self-attention.
 
 4. Unsupervised Latent Generative Models (LSTM-AE, VAE): Because failure events are rare, unsupervised anomaly detection models are trained to compress healthy sensor patterns into a low-dimensional bottleneck latent representation z and reconstruct the original signal x_hat. The anomaly detection metric is the mean squared reconstruction error:
 
-```text
-Anomaly score MSE(x, x_hat) = (1 / (T × C)) × sum over t and c of (x[t,c] - x_hat[t,c])^2
-```
-
 While standard LSTM Autoencoders [24] map deterministically to a latent vector, the Variational Autoencoder (VAE) [22] maps the sequence to a probabilistic distribution defined by mean vector mu and log-variance log(sigma^2). Using the reparameterization trick z = mu + epsilon × sigma, where epsilon is sampled from a standard normal distribution, the model optimizes the Evidence Lower Bound (ELBO):
-
-```text
-ELBO(x) = expected log-likelihood - KL divergence between q(z|x) and the prior p(z)
-```
 
 The KL divergence term forces the latent space to remain smooth and continuous, preventing arbitrary clustering and producing exceptionally smooth anomaly score separation between nominal compressor cycling and pneumatic failure modes.
 
@@ -235,16 +208,8 @@ The sequence label y_k is 0 or 1 and is assigned from the ground-truth state at 
 
 3. CNN-Transformer Tensor Flow: The hybrid architecture maps each input sequence through a 1D convolution, two transformer encoder stages, temporal mean pooling, and a final linear classifier:
 
-```text
-Input [batch, 60, 16] → Conv1D [batch, 60, 64] → Transformer encoder × 2 → temporal mean pooling → linear output [batch].
-```
-
 
 ### (c) Flowchart
-
-![Fig. A · Complete 8-step end-to-end predictive maintenance pipeline: from raw multi-gigabyte telemetry ingestion to chronological splitting, leak-free normalization, 1:1 balanced sequence windowing, 10-architecture PyTorch benchmarking, dual-evaluation testing, and validation threshold calibration.](figures/methodology_flowchart.png)
-
-*Fig. A · Complete 8-step end-to-end predictive maintenance pipeline: from raw multi-gigabyte telemetry ingestion to chronological splitting, leak-free normalization, 1:1 balanced sequence windowing, 10-architecture PyTorch benchmarking, dual-evaluation testing, and validation threshold calibration.*
 
 
 ## V. Results and Discussion
@@ -252,7 +217,7 @@ Input [batch, 60, 16] → Conv1D [batch, 60, 64] → Transformer encoder × 2 �
 
 ### (a) Results of All Algorithms
 
-All 10 deep learning architectures were trained and evaluated under strictly identical conditions on the held-out chronological test partition (23,668 sequences) using PyTorch on a Tesla T4 GPU. Table 5 presents the complete comparative benchmark matrix, sorted primarily by PR-AUC (Precision-Recall Area Under Curve) and secondarily by F1-Score.
+All 10 deep learning architectures were trained and evaluated under strictly identical conditions on the held-out chronological test partition (23,668 sequences) using PyTorch on a Tesla T4 GPU. Table 5 presents the complete comparative benchmark matrix for MetroPT-2, sorted primarily by PR-AUC and secondarily by F1-Score. Table 6 presents the corresponding 10-algorithm evaluation on MetroPT-3 under unseen lubrication and intake failure conditions.
 
 
 | Rank | Algorithm Architecture | Params | Train Time | Latency (ms) | Recall | Precision | F1-Score | PR-AUC | Podium Status |
@@ -269,24 +234,28 @@ All 10 deep learning architectures were trained and evaluated under strictly ide
 | 10 | CNN-Transformer (Custom Stage-by-Stage) | 72,321 | 2.41s | 0.08 ms | 1.0000 | 0.9669 | 0.9832 | 0.9536 | Evaluated |
 | 11 | 7. Transformer Encoder | 70,145 | 2.14s | 0.09 ms | 0.9989 | 0.9676 | 0.9830 | 0.9475 | Evaluated |
 
-To evaluate cross-dataset transfer robustness, models trained on MetroPT-2 were transferred directly to the unseen lubrication and intake failure regime of MetroPT-3. Table 6 summarizes the resulting cross-dataset performance under fixed operational thresholds (τ = 0.50).
+Table 6. Complete 10-Algorithm Benchmark Comparison Matrix (MetroPT-3 Unseen Lubrication & Intake Faults).
 
 
-| Dataset | Model Architecture | PR-AUC (Primary) | Recall | Precision | F1-Score | Train Time (s) | Transfer Rank |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| MetroPT-3 (APU) | TCN | 0.1939 | 0.0151 | 0.4146 | 0.0291 | 21.6s | Rank 1 |
-| MetroPT-3 (APU) | GRU | 0.1830 | 0.0000 | 0.0000 | 0.0000 | 21.2s | Rank 2 |
-| MetroPT-3 (APU) | LSTM | 0.1783 | 0.0000 | 0.0000 | 0.0000 | 8.8s | Rank 3 |
-| MetroPT-2 (APU) | GRU | 0.9673 | 1.0000 | 0.9686 | 0.9841 | 13.8s | Rank 1 |
-| MetroPT-2 (APU) | LSTM | 0.9669 | 1.0000 | 0.9681 | 0.9838 | 5.8s | Rank 2 |
-| MetroPT-2 (APU) | TCN | 0.9543 | 0.9997 | 0.9669 | 0.9830 | 15.2s | Rank 3 |
+| Rank | Algorithm Architecture | Params | Train Time | Latency (ms) | Recall | Precision | F1-Score | PR-AUC | Podium Status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | 7. Transformer Encoder | 70,145 | 3.51s | 0.13 ms | 0.0000 | 0.0000 | 0.0000 | 0.1714 | TOP 1 (PR-AUC) |
+| 2 | 3. BiLSTM (Bidirectional LSTM) | 145,473 | 2.27s | 0.12 ms | 0.0000 | 0.0000 | 0.0000 | 0.1398 | TOP 2 (PR-AUC) |
+| 3 | 8. Temporal Fusion Transformer (TFT) | 172,753 | 7.06s | 0.49 ms | 0.0000 | 0.0000 | 0.0000 | 0.1381 | TOP 3 (Podium) |
+| 4 | 6. Temporal Convolutional Network (TCN) | 112,353 | 1.79s | 0.12 ms | 0.0000 | 0.0000 | 0.0000 | 0.1378 | Evaluated |
+| 5 | 9. LSTM Autoencoder | 60,625 | 0.82s | 0.06 ms | 1.0000 | 0.1255 | 0.2229 | 0.1328 | Evaluated |
+| 6 | 5. CNN-BiLSTM with Attention | 64,290 | 1.02s | 0.07 ms | 0.0000 | 0.0000 | 0.0000 | 0.1217 | Evaluated |
+| 7 | 10. Variational Autoencoder (VAE) | 49,137 | 1.41s | 0.10 ms | 0.7380 | 0.1235 | 0.2117 | 0.1198 | Evaluated |
+| 8 | 2. GRU (Gated Recurrent Unit) | 42,817 | 1.45s | 0.09 ms | 0.0000 | 0.0000 | 0.0000 | 0.1182 | Evaluated |
+| 9 | 4. CNN-LSTM (1D Conv + LSTM) | 28,833 | 0.40s | 0.03 ms | 0.0000 | 0.0000 | 0.0000 | 0.1164 | Evaluated |
+| 10 | 1. LSTM (Long Short-Term Memory) | 56,385 | 1.00s | 0.05 ms | 0.0000 | 0.0000 | 0.0000 | 0.1155 | Evaluated |
 
 Table 7 presents the results of our Dual-Evaluation Framework, isolating Task 1 (Active Fault State Monitoring) from Task 2 (2-Hour Anticipatory Pre-Failure Warning). Table 8 displays the results of our unsupervised validation threshold calibration procedure q90, q95, and q98 on MetroPT-3.
 
 
-| Operational Task | Target Definition | Test Positives (N) | Best Model | PR-AUC | Recall | Precision | F1-Score |
+| Operational Task | Target Definition | Test Positives (N) | Top Architecture (Mode) | PR-AUC | Recall | Precision | F1-Score |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Task 1: Active Monitoring | Pre-Warning + Ongoing Failure Outage | 3,767 windows | GRU / LSTM | 0.9673 | 100.00% | 96.86% | 0.9841 |
+| Task 1: Active Monitoring | Pre-Warning + Ongoing Failure Outage | 3,767 windows | TFT (Supervised) / VAE (Unsupervised) | 0.9817 / 0.9833 | 99.95% / 100.00% | 96.74% | 0.9832 |
 | Task 2: Anticipatory Warning | Pure 2-Hour Pre-Warning Horizon Only | 120 windows | GRU / LSTM | 0.4335 | 100.00% | 49.59% | 0.6630 |
 
 
@@ -305,26 +274,6 @@ Table 7 presents the results of our Dual-Evaluation Framework, isolating Task 1 
 ### (b) Figures for All Tables
 
 The empirical findings are visualized below through comparative Precision-Recall curves, normalized confusion matrices, and unsupervised threshold calibration curves.
-
-![Fig. 1 · Precision-Recall curves across deep learning models on MetroPT-2 and MetroPT-3 test sets. PR-AUC reliably reflects anomaly detection capability under extreme class imbalance without being artificially inflated by true negatives.](figures/pr_curves_comparison.png)
-
-*Fig. 1 · Precision-Recall curves across deep learning models on MetroPT-2 and MetroPT-3 test sets. PR-AUC reliably reflects anomaly detection capability under extreme class imbalance without being artificially inflated by true negatives.*
-
-![Fig. 2 · Normalized 2×3 confusion matrices across LSTM, GRU, and TCN under Task 1 (Active Monitoring) and Task 2 (2-Hour Pre-Warning). Models achieve zero missed detections on pneumatic leaks while maintaining false alarms under 3.2%.](figures/confusion_matrices.png)
-
-*Fig. 2 · Normalized 2×3 confusion matrices across LSTM, GRU, and TCN under Task 1 (Active Monitoring) and Task 2 (2-Hour Pre-Warning). Models achieve zero missed detections on pneumatic leaks while maintaining false alarms under 3.2%.*
-
-![Fig. 3 · Validation-only threshold calibration curves on MetroPT-3. Evaluating decision thresholds derived strictly from healthy validation quantiles (q90, q95, q98) successfully restores failure recall from 0% to 35% without test label leakage.](figures/threshold_calibration_curves.png)
-
-*Fig. 3 · Validation-only threshold calibration curves on MetroPT-3. Evaluating decision thresholds derived strictly from healthy validation quantiles (q90, q95, q98) successfully restores failure recall from 0% to 35% without test label leakage.*
-
-![Fig. 4 · Class distribution across raw telemetry rows and 10-minute sliding sequence windows, illustrating 1:1 balanced training undersampling versus natural real-world test imbalance.](figures/class_distribution.png)
-
-*Fig. 4 · Class distribution across raw telemetry rows and 10-minute sliding sequence windows, illustrating 1:1 balanced training undersampling versus natural real-world test imbalance.*
-
-![Fig. 5 · Test subclass decomposition isolating the 2-hour early warning horizon from the extended failure breakdown period.](figures/test_subclass_composition.png)
-
-*Fig. 5 · Test subclass decomposition isolating the 2-hour early warning horizon from the extended failure breakdown period.*
 
 
 ### (c) Comparison and Discussion

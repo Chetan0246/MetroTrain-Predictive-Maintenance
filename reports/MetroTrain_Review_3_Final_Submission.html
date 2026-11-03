@@ -206,7 +206,7 @@
 
 <p class="abstract-p"><strong>Base paper.</strong> Matthias Jakobs et al. (2026, <em>International Journal of Data Science and Analytics</em>) [1] and Bruno Veloso et al. (2022) [16] evaluate online rule induction (RIPPER, Decision Trees) and tree ensembles (Random Forest, XGBoost) on MetroPT telemetry. They report initial failure detection F1-scores of ~0.65 to 0.78, but exhibit high false alarm rates (precision &lt; 50%) under streaming class imbalance (&gt;98% normal operation) and vulnerability to sensor drift.</p>
 
-<p class="abstract-p"><strong>Proposed method.</strong> We build an end-to-end predictive maintenance pipeline evaluating 10 Deep Learning architectures spanning four sequential paradigms: Recurrent Baselines (LSTM, GRU, BiLSTM), Hybrid Convolutions (CNN-LSTM, CNN-BiLSTM with Attention, TCN), Multi-Head Transformers (Transformer Encoder, Temporal Fusion Transformer), and Unsupervised Generative Latent Models (LSTM Autoencoder, Variational Autoencoder), accompanied by a custom multistage CNN-Transformer. On held-out chronological test sequences (23,668 sequences), Variational Autoencoder (VAE) and LSTM Autoencoder lead theoretical anomaly separation with a peak PR-AUC of 0.9833 (100% recall); Temporal Fusion Transformer (TFT) delivers the premier operational deployment fit with 0.9817 PR-AUC, 99.95% Recall, 96.74% Precision, and 0.9832 F1-Score; while CNN-BiLSTM with Attention achieves 100.00% Recall and 96.66% Precision with an edge inference latency of 0.05 ms.</p>
+<p class="abstract-p"><strong>Proposed method.</strong> We build an end-to-end predictive maintenance pipeline evaluating 10 Deep Learning architectures spanning four sequential paradigms: Recurrent Baselines (LSTM, GRU, BiLSTM), Hybrid Convolutions (CNN-LSTM, CNN-BiLSTM with Attention, TCN), Multi-Head Transformers (Transformer Encoder, Temporal Fusion Transformer), and Unsupervised Generative Latent Models (LSTM Autoencoder, Variational Autoencoder), accompanied by a custom multistage CNN-Transformer. On held-out chronological test sequences (23,668 sequences), Variational Autoencoder (VAE) and LSTM Autoencoder lead theoretical anomaly separation with a peak PR-AUC of 0.9833 (100% recall); Temporal Fusion Transformer (TFT) delivers the premier operational deployment fit with 0.9817 PR-AUC, 99.95% Recall, 96.74% Precision, and 0.9832 F1-Score; GRU achieves the top operational F1-Score of 0.9842 with 100.00% Recall and 96.89% Precision; while CNN-BiLSTM with Attention achieves 100.00% Recall and 96.66% Precision with an edge inference latency of 0.05 ms.</p>
 
 <p class="abstract-p"><strong>New features.</strong> (1) A 10-algorithm deep learning comparison suite across 4 sequential paradigms. (2) Dual-Evaluation framework isolating ongoing active fault state detection (Task 1) from 2-hour anticipatory pre-failure warning (Task 2). (3) Strict zero-leakage chronological partitioning (65/15/20 and 70/15/15) preserving temporal thermodynamic autocorrelation. (4) 1:1 balanced temporal sliding window undersampling evaluated against SMOTE. (5) Unsupervised validation-only quantile threshold calibration (q90, q95, q98) resolving out-of-distribution cross-dataset transfer recall collapse without test label exposure. (6) Sub-millisecond edge latency benchmarking (&lt;0.5 ms per sequence).</p>
 
@@ -966,7 +966,7 @@ The sequence label y_k is 0 or 1 and is assigned from the ground-truth state at 
 
 <h3 class="sub-heading">(a) Results of All Algorithms</h3>
 <p>
-All 10 deep learning architectures were trained and evaluated under strictly identical conditions on the held-out chronological test partition (23,668 sequences) using PyTorch on a Tesla T4 GPU. Table 5 presents the complete comparative benchmark matrix, sorted primarily by PR-AUC (Precision-Recall Area Under Curve) and secondarily by F1-Score.
+All 10 deep learning architectures were trained and evaluated under strictly identical conditions on the held-out chronological test partition (23,668 sequences) using PyTorch on a Tesla T4 GPU. Table 5 presents the complete comparative benchmark matrix for MetroPT-2, sorted primarily by PR-AUC and secondarily by F1-Score. Table 6 presents the corresponding 10-algorithm evaluation on MetroPT-3 under unseen lubrication and intake failure conditions.
 </p>
 
 <table class="academic-table">
@@ -1120,83 +1120,142 @@ All 10 deep learning architectures were trained and evaluated under strictly ide
   </tbody>
 </table>
 
-<p>
-To evaluate cross-dataset transfer robustness, models trained on MetroPT-2 were transferred directly to the unseen lubrication and intake failure regime of MetroPT-3. Table 6 summarizes the resulting cross-dataset performance under fixed operational thresholds (&tau; = 0.50).
-</p>
-
+<p class="table-caption"><b>Table 6.</b> Complete 10-Algorithm Benchmark Comparison Matrix (MetroPT-3 Unseen Lubrication &amp; Intake Faults).</p>
 <table class="academic-table">
   <thead>
     <tr>
-      <th>Dataset</th>
-      <th>Model Architecture</th>
-      <th>PR-AUC (Primary)</th>
-      <th>Recall</th>
-      <th>Precision</th>
-      <th>F1-Score</th>
-      <th>Train Time (s)</th>
-      <th>Transfer Rank</th>
+      <th style="width: 5%;">Rank</th>
+      <th style="width: 25%;">Algorithm Architecture</th>
+      <th style="width: 9%;">Params</th>
+      <th style="width: 9%;">Train Time</th>
+      <th style="width: 9%;">Latency (ms)</th>
+      <th style="width: 8%;">Recall</th>
+      <th style="width: 8%;">Precision</th>
+      <th style="width: 8%;">F1-Score</th>
+      <th style="width: 9%;">PR-AUC</th>
+      <th style="width: 10%;">Podium Status</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><strong>MetroPT-3 (APU)</strong></td>
-      <td><strong>TCN</strong></td>
-      <td><strong>0.1939</strong></td>
-      <td>0.0151</td>
-      <td>0.4146</td>
-      <td>0.0291</td>
-      <td>21.6s</td>
-      <td><strong>Rank 1</strong></td>
+      <td>1</td>
+      <td><strong>7. Transformer Encoder</strong></td>
+      <td>70,145</td>
+      <td>3.51s</td>
+      <td>0.13 ms</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td><strong>0.1714</strong></td>
+      <td><strong>TOP 1 (PR-AUC)</strong></td>
     </tr>
     <tr>
-      <td><strong>MetroPT-3 (APU)</strong></td>
-      <td><strong>GRU</strong></td>
-      <td><strong>0.1830</strong></td>
+      <td>2</td>
+      <td><strong>3. BiLSTM (Bidirectional LSTM)</strong></td>
+      <td>145,473</td>
+      <td>2.27s</td>
+      <td>0.12 ms</td>
       <td>0.0000</td>
       <td>0.0000</td>
       <td>0.0000</td>
-      <td>21.2s</td>
-      <td><strong>Rank 2</strong></td>
+      <td><strong>0.1398</strong></td>
+      <td><strong>TOP 2 (PR-AUC)</strong></td>
     </tr>
     <tr>
-      <td><strong>MetroPT-3 (APU)</strong></td>
-      <td><strong>LSTM</strong></td>
-      <td><strong>0.1783</strong></td>
+      <td>3</td>
+      <td><strong>8. Temporal Fusion Transformer (TFT)</strong></td>
+      <td>172,753</td>
+      <td>7.06s</td>
+      <td>0.49 ms</td>
       <td>0.0000</td>
       <td>0.0000</td>
       <td>0.0000</td>
-      <td>8.8s</td>
-      <td><strong>Rank 3</strong></td>
+      <td><strong>0.1381</strong></td>
+      <td><strong>TOP 3 (Podium)</strong></td>
     </tr>
     <tr>
-      <td><strong>MetroPT-2 (APU)</strong></td>
-      <td><strong>GRU</strong></td>
-      <td><strong>0.9673</strong></td>
+      <td>4</td>
+      <td><strong>6. Temporal Convolutional Network (TCN)</strong></td>
+      <td>112,353</td>
+      <td>1.79s</td>
+      <td>0.12 ms</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td><strong>0.1378</strong></td>
+      <td>Evaluated</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><strong>9. LSTM Autoencoder</strong></td>
+      <td>60,625</td>
+      <td>0.82s</td>
+      <td>0.06 ms</td>
       <td>1.0000</td>
-      <td>0.9686</td>
-      <td>0.9841</td>
-      <td>13.8s</td>
-      <td><strong>Rank 1</strong></td>
+      <td>0.1255</td>
+      <td>0.2229</td>
+      <td><strong>0.1328</strong></td>
+      <td>Evaluated</td>
     </tr>
     <tr>
-      <td><strong>MetroPT-2 (APU)</strong></td>
-      <td><strong>LSTM</strong></td>
-      <td><strong>0.9669</strong></td>
-      <td>1.0000</td>
-      <td>0.9681</td>
-      <td>0.9838</td>
-      <td>5.8s</td>
-      <td><strong>Rank 2</strong></td>
+      <td>6</td>
+      <td><strong>5. CNN-BiLSTM with Attention</strong></td>
+      <td>64,290</td>
+      <td>1.02s</td>
+      <td>0.07 ms</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.1217</td>
+      <td>Evaluated</td>
     </tr>
     <tr>
-      <td><strong>MetroPT-2 (APU)</strong></td>
-      <td><strong>TCN</strong></td>
-      <td><strong>0.9543</strong></td>
-      <td>0.9997</td>
-      <td>0.9669</td>
-      <td>0.9830</td>
-      <td>15.2s</td>
-      <td><strong>Rank 3</strong></td>
+      <td>7</td>
+      <td><strong>10. Variational Autoencoder (VAE)</strong></td>
+      <td>49,137</td>
+      <td>1.41s</td>
+      <td>0.10 ms</td>
+      <td>0.7380</td>
+      <td>0.1235</td>
+      <td>0.2117</td>
+      <td>0.1198</td>
+      <td>Evaluated</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><strong>2. GRU (Gated Recurrent Unit)</strong></td>
+      <td>42,817</td>
+      <td>1.45s</td>
+      <td>0.09 ms</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.1182</td>
+      <td>Evaluated</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><strong>4. CNN-LSTM (1D Conv + LSTM)</strong></td>
+      <td>28,833</td>
+      <td>0.40s</td>
+      <td>0.03 ms</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.1164</td>
+      <td>Evaluated</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td><strong>1. LSTM (Long Short-Term Memory)</strong></td>
+      <td>56,385</td>
+      <td>1.00s</td>
+      <td>0.05 ms</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.0000</td>
+      <td>0.1155</td>
+      <td>Evaluated</td>
     </tr>
   </tbody>
 </table>
@@ -1211,7 +1270,7 @@ Table 7 presents the results of our Dual-Evaluation Framework, isolating Task 1 
       <th>Operational Task</th>
       <th>Target Definition</th>
       <th>Test Positives (N)</th>
-      <th>Best Model</th>
+      <th>Top Architecture (Mode)</th>
       <th>PR-AUC</th>
       <th>Recall</th>
       <th>Precision</th>
@@ -1223,11 +1282,11 @@ Table 7 presents the results of our Dual-Evaluation Framework, isolating Task 1 
       <td><strong>Task 1: Active Monitoring</strong></td>
       <td>Pre-Warning + Ongoing Failure Outage</td>
       <td>3,767 windows</td>
-      <td><strong>GRU / LSTM</strong></td>
-      <td><strong>0.9673</strong></td>
-      <td>100.00%</td>
-      <td>96.86%</td>
-      <td>0.9841</td>
+      <td><strong>TFT (Supervised) / VAE (Unsupervised)</strong></td>
+      <td><strong>0.9817 / 0.9833</strong></td>
+      <td>99.95% / 100.00%</td>
+      <td>96.74%</td>
+      <td><strong>0.9832</strong></td>
     </tr>
     <tr>
       <td><strong>Task 2: Anticipatory Warning</strong></td>

@@ -103,16 +103,21 @@ The end-to-end technical methodology follows eight reproducible, mathematically 
 
 ## 4. Key Experimental Results & Benchmarks
 
-### Benchmark Summary Table (Default Operating Threshold $\tau = 0.50$)
+### Complete 10-Algorithm Benchmark Summary Table
 
-| Dataset | Model | Task 1: Active State Monitoring | Task 2: Anticipatory Pre-Failure Warning | Task 2 Test FPR | Task 2 Prevalence | Benchmark Rank |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **MetroPT-2** | **GRU** | **PR-AUC: 0.9673** \| Recall: 1.0000 | **PR-AUC: 0.4335** \| Recall: 1.0000 | **0.61%** (122 / 19,947) | 0.60% (120 / 20,067) | 🥇 **Rank 1** |
-| **MetroPT-2** | **LSTM** | **PR-AUC: 0.9669** \| Recall: 1.0000 | **PR-AUC: 0.4026** \| Recall: 1.0000 | **0.62%** (124 / 19,947) | 0.60% (120 / 20,067) | 🥈 Rank 2 |
-| **MetroPT-2** | **TCN** | **PR-AUC: 0.9543** \| Recall: 0.9997 | **PR-AUC: 0.3644** \| Recall: 0.9917 | **0.65%** (129 / 19,947) | 0.60% (120 / 20,067) | 🥉 Rank 3 |
-| **MetroPT-3** | **TCN** | **PR-AUC: 0.1939** \| Recall: 0.0151 | **PR-AUC: 0.0177** \| Recall: 0.0000 | **0.31%** (72 / 23,547) | 0.51% (120 / 23,667) | 🥇 **Rank 1** (OOD) |
-| **MetroPT-3** | **GRU** | **PR-AUC: 0.1830** \| Recall: 0.0000 | **PR-AUC: 0.0207** \| Recall: 0.0000 | **0.12%** (29 / 23,547) | 0.51% (120 / 23,667) | 🥈 Rank 2 |
-| **MetroPT-3** | **LSTM** | **PR-AUC: 0.1783** \| Recall: 0.0000 | **PR-AUC: 0.0135** \| Recall: 0.0000 | **0.00%** (0 / 23,547) | 0.51% (120 / 23,667) | 🥉 Rank 3 |
+| Rank | Model Architecture (MetroPT-2) | PR-AUC | Recall | Precision | F1-Score | Status | Model Architecture (MetroPT-3 OOD) | PR-AUC | Recall (Default) | Calibrated Recall ($q_{90}$) |
+| :---: | :--- | :---: | :---: | :---: | :---: | :---: | :--- | :---: | :---: | :---: |
+| 1 | **Variational Autoencoder (VAE)** | **0.9833** | 1.0000 | 0.3310 | 0.4974 | 🥇 **Rank 1 (PR-AUC)** | **Transformer Encoder** | **0.1714** | 0.0000 | 31.35% |
+| 2 | **LSTM Autoencoder** | **0.9833** | 1.0000 | 0.1589 | 0.2742 | 🥈 **Rank 2 (PR-AUC)** | **BiLSTM** | **0.1398** | 0.0000 | 33.20% |
+| 3 | **Temporal Fusion Transformer (TFT)** | **0.9817** | 0.9995 | 0.9674 | **0.9832** | 🥉 **Top Operational** | **Temporal Fusion Transformer (TFT)** | **0.1381** | 0.0000 | 34.10% |
+| 4 | **CNN-BiLSTM with Attention** | **0.9787** | 1.0000 | 0.9666 | 0.9830 | Evaluated | **Temporal Convolutional Network (TCN)** | **0.1378** | 0.0000 | 34.04% |
+| 5 | **CNN-LSTM (1D Conv + LSTM)** | 0.9645 | 1.0000 | 0.9684 | 0.9839 | Evaluated | **LSTM Autoencoder** | 0.1328 | 1.0000 | 100.00% |
+| 6 | **LSTM (Long Short-Term Memory)** | 0.9633 | 1.0000 | 0.9686 | 0.9841 | Evaluated | **CNN-BiLSTM with Attention** | 0.1217 | 0.0000 | 30.12% |
+| 7 | **BiLSTM (Bidirectional LSTM)** | 0.9621 | 0.9981 | 0.9671 | 0.9824 | Evaluated | **Variational Autoencoder (VAE)** | 0.1198 | 0.7380 | 73.80% |
+| 8 | **Temporal Convolutional Network (TCN)** | 0.9599 | 0.9992 | 0.9676 | 0.9832 | Evaluated | **GRU (Gated Recurrent Unit)** | 0.1182 | 0.0000 | 35.02% |
+| 9 | **GRU (Gated Recurrent Unit)** | 0.9560 | 1.0000 | 0.9689 | **0.9842** | Top F1-Score | **CNN-LSTM (1D Conv + LSTM)** | 0.1164 | 0.0000 | 28.45% |
+| 10 | **CNN-Transformer** | 0.9536 | 1.0000 | 0.9669 | 0.9832 | Evaluated | **LSTM (Long Short-Term Memory)** | 0.1155 | 0.0000 | 31.35% |
+| 11 | **Transformer Encoder** | 0.9475 | 0.9989 | 0.9676 | 0.9830 | Evaluated | — | — | — | — |
 
 ---
 

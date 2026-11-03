@@ -2,7 +2,7 @@
 
 **Student**: Moorthy Chetan (`24BIT0246`)  
 
-**Evaluation Partition**: Held-Out Chronological Test Partition (23,668 sequences)  
+**Evaluation Partition**: Held-Out Chronological Test Partition (26,925 sequences)  
 
 **Sorting Criteria**: Ranked by PR-AUC (Primary) and F1-Score (Secondary)
 
