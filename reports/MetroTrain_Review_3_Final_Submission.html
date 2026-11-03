@@ -5,105 +5,107 @@
 <title>PREDICTIVE MAINTENANCE IN METRO TRAINS USING MACHINE LEARNING AND DEEP LEARNING TECHNIQUES</title>
 <style>
   @page {
-    size: A4;
-    margin: 18mm 14mm 18mm 14mm;
+    size: letter;
+    margin: 20mm 20mm 20mm 20mm;
   }
   
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    color: #1F2328;
-    line-height: 1.52;
-    font-size: 9.5pt;
+    font-family: Carlito, Calibri, "Segoe UI", Arial, sans-serif;
+    color: #000000;
+    line-height: 1.40;
+    font-size: 10pt;
+    orphans: 3;
+    widows: 3;
     margin: 0;
     padding: 0;
   }
 
   /* Headings */
   h1.paper-title {
-    font-size: 17pt;
-    font-weight: 800;
-    text-align: center;
-    color: #0969DA;
+    font-size: 15pt;
+    font-weight: bold;
+    text-align: left;
+    color: #000000;
     line-height: 1.25;
-    margin-bottom: 8px;
-    letter-spacing: -0.2px;
+    margin-top: 0;
+    margin-bottom: 12px;
   }
 
   .author-block {
-    text-align: center;
-    font-size: 10pt;
-    color: #424A53;
-    margin-bottom: 20px;
-    border-bottom: 1.5px solid #D0D7DE;
-    padding-bottom: 12px;
-  }
-
-  .author-block strong {
-    color: #1F2328;
+    text-align: left;
     font-size: 10.5pt;
+    color: #000000;
+    margin-bottom: 16px;
+    font-weight: bold;
+    line-height: 1.35;
   }
 
-  .abstract-box {
-    background-color: #F6F8FA;
-    border: 1.5px solid #D0D7DE;
-    border-left: 4.5px solid #0969DA;
-    border-radius: 6px;
-    padding: 12px 16px;
-    margin-bottom: 22px;
-    font-size: 9pt;
+  .author-block .email-line {
+    font-weight: normal;
+    font-size: 10pt;
+    color: #000000;
   }
 
-  .abstract-box h2 {
+  /* Abstract */
+  h2.abstract-title {
+    font-size: 11pt;
+    font-weight: bold;
+    color: #000000;
     margin-top: 0;
     margin-bottom: 6px;
-    font-size: 11pt;
-    color: #0969DA;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
   }
 
-  .abstract-item {
+  p.abstract-p {
+    font-size: 9.5pt;
+    line-height: 1.35;
+    text-align: justify;
+    margin-top: 0;
     margin-bottom: 6px;
-  }
-
-  .abstract-label {
-    font-weight: 700;
-    color: #1F2328;
   }
 
   h2.section-heading {
-    font-size: 12pt;
-    font-weight: 700;
-    color: #0969DA;
-    border-bottom: 1.5px solid #D0D7DE;
-    padding-bottom: 4px;
-    margin-top: 22px;
-    margin-bottom: 10px;
+    font-size: 11.5pt;
+    font-weight: bold;
+    color: #000000;
+    margin-top: 14px;
+    margin-bottom: 6px;
     page-break-after: avoid;
+    border-bottom: none;
+    padding-bottom: 0;
   }
 
   h3.sub-heading {
     font-size: 10.5pt;
-    font-weight: 700;
-    color: #24292F;
-    margin-top: 14px;
-    margin-bottom: 6px;
+    font-weight: bold;
+    color: #000000;
+    margin-top: 10px;
+    margin-bottom: 4px;
     page-break-after: avoid;
   }
 
   p {
     margin-top: 0;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     text-align: justify;
   }
 
   /* Tables */
+  .table-caption {
+    font-size: 8.5pt;
+    font-weight: bold;
+    color: #000000;
+    margin-top: 8px;
+    margin-bottom: 3px;
+    page-break-after: avoid;
+  }
+
   table.academic-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
-    margin-bottom: 14px;
+    margin-top: 3px;
+    margin-bottom: 8px;
     font-size: 8pt;
+    border: 1px solid #000000;
     page-break-inside: auto;
   }
 
@@ -113,65 +115,59 @@
   }
 
   table.academic-table th {
-    background-color: #F6F8FA;
-    color: #24292F;
-    font-weight: 700;
-    border: 1px solid #D0D7DE;
-    padding: 5px 6px;
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: bold;
+    border: 1px solid #000000;
+    padding: 3px 5px;
     text-align: left;
   }
 
   table.academic-table td {
-    border: 1px solid #D0D7DE;
-    padding: 4px 6px;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+    padding: 3px 5px;
     vertical-align: top;
   }
-
-  table.academic-table tr:nth-child(even) {
-    background-color: #FBFCFD;
-  }
-
-  .badge-rank1 { background: #FEF3C7; color: #92400E; font-weight: 700; padding: 1px 4px; border-radius: 3px; border: 1px solid #FCD34D; }
-  .badge-rank2 { background: #F1F5F9; color: #334155; font-weight: 700; padding: 1px 4px; border-radius: 3px; border: 1px solid #CBD5E1; }
-  .badge-rank3 { background: #FFEDD5; color: #9A3412; font-weight: 700; padding: 1px 4px; border-radius: 3px; border: 1px solid #FDBA74; }
-  .badge-pass { background: #DCFCE7; color: #166534; font-weight: 700; padding: 1px 4px; border-radius: 3px; }
 
   /* Figures */
   .figure-container {
     text-align: center;
-    margin: 14px 0;
+    margin: 8px 0;
     page-break-inside: avoid;
   }
 
   .figure-container img {
-    max-width: 96%;
+    max-width: 95%;
     height: auto;
-    border: 1px solid #D0D7DE;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   }
 
   .figure-caption {
     font-size: 8.5pt;
-    color: #57606A;
-    margin-top: 5px;
-    font-weight: 600;
+    color: #000000;
+    margin-top: 3px;
+    text-align: left;
+    font-weight: normal;
   }
 
   /* Code / formulas */
   .formula-box {
-    background: #F6F8FA;
-    border-left: 3px solid #0969DA;
-    padding: 6px 12px;
-    margin: 8px 0;
+    background: #ffffff;
+    border-left: 2px solid #000000;
+    padding: 4px 10px;
+    margin: 5px 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
     font-family: "Courier New", Courier, monospace;
     font-size: 8.5pt;
+    color: #000000;
   }
 
   ol, ul {
     margin-top: 0;
-    margin-bottom: 8px;
-    padding-left: 20px;
+    margin-bottom: 6px;
+    padding-left: 18px;
   }
 
   li {
@@ -181,6 +177,7 @@
 
   .page-break {
     page-break-before: always;
+    break-before: page;
   }
 
   .references-list {
@@ -198,33 +195,20 @@
 <body>
 
 <!-- HEADER BLOCK -->
-<h1 class="paper-title">PREDICTIVE MAINTENANCE IN METRO TRAINS USING MACHINE LEARNING AND DEEP LEARNING TECHNIQUES</h1>
+<h1 class="paper-title">Predictive Maintenance in Metro Trains Using Machine Learning and Deep Learning Techniques</h1>
 <div class="author-block">
-  <strong>Moorthy Chetan</strong> (Registration Number: <code>24BIT0246</code>) &nbsp;|&nbsp; Email: <code>moorthy.chetan2024@vitstudent.ac.in</code><br>
-  School of Information Technology and Engineering (SITE) &nbsp;|&nbsp; <strong>Vellore Institute of Technology (VIT), Vellore</strong><br>
-  <em>AST Project Work — Course Project Review 3 Final Capstone Report</em>
+  MOORTHY CHETAN [24BIT0246]<br>
+  <span class="email-line">moorthy.chetan2024@vitstudent.ac.in</span>
 </div>
 
-<!-- ABSTRACT SECTION (Exact 4 Points from Template) -->
-<div class="abstract-box">
-  <h2>Abstract</h2>
-  <div class="abstract-item">
-    <span class="abstract-label">(1) Project Overview:</span>
-    This project designs, implements, and benchmarks an industrial-grade predictive maintenance framework for Air Production Units (APU) in passenger metro trains operated by <em>Metro do Porto, Portugal</em>. By continuously monitoring 16 multivariate analog and digital sensor telemetry channels, the system anticipates impending pneumatic compressor leaks and lubrication failures up to two hours before physical system breakdown occurs.
-  </div>
-  <div class="abstract-item">
-    <span class="abstract-label">(2) Base Paper Algorithms & Their Accuracy:</span>
-    Base literature (Matthias Jakobs et al., 2026 [1]; Bruno Veloso et al., 2022 [16]) investigated online rule induction (RIPPER, Decision Trees) and classical tree ensembles (Random Forest, XGBoost) on MetroPT telemetry. These reported an initial failure detection F1-score of ~0.65 to 0.78, but suffered from severe false alarm rates (precision &lt; 50%) under extreme streaming class imbalance and exhibited high vulnerability to sensor calibration shifts.
-  </div>
-  <div class="abstract-item">
-    <span class="abstract-label">(3) Proposed Method Algorithms & Their Accuracy:</span>
-    We develop and evaluate a comprehensive benchmark suite of <strong>10 Deep Learning architectures</strong> spanning four sequential modeling paradigms: Recurrent Baselines (LSTM, GRU, BiLSTM), Hybrid Convolutions (CNN-LSTM, CNN-BiLSTM with Attention, TCN), Multi-Head Transformers (Transformer Encoder, Temporal Fusion Transformer), and Unsupervised Generative Latent Models (LSTM Autoencoder, Variational Autoencoder), accompanied by a custom multistage CNN-Transformer. On held-out chronological test partitions (23,668 sequences), <strong>Variational Autoencoder (VAE)</strong> and <strong>LSTM Autoencoder</strong> lead theoretical ranking with a peak <strong>PR-AUC of 0.9833</strong> (100% recall); <strong>Temporal Fusion Transformer (TFT)</strong> delivers the premier operational deployment performance with <strong>0.9817 PR-AUC, 99.95% Recall, 96.74% Precision, and 0.9832 F1-Score</strong>; while <strong>CNN-BiLSTM with Attention</strong> achieves <strong>100.00% Recall, 96.66% Precision</strong> with an edge inference latency of <strong>0.05 ms</strong>.
-  </div>
-  <div class="abstract-item">
-    <span class="abstract-label">(4) New Features Added:</span>
-    (i) 10-Algorithm deep learning comparison suite across 4 architectural paradigms. (ii) Dual-Evaluation framework separating ongoing active fault state detection (Task 1) from 2-hour anticipatory pre-failure warning (Task 2). (iii) Strict zero-leakage chronological partitioning (65/15/20 and 70/15/15) preserving temporal autocorrelation. (iv) 1:1 balanced temporal sliding window undersampling with formal mathematical and empirical comparison against SMOTE. (v) Validation-only quantile threshold calibration (q90, q95, q98) resolving out-of-distribution transfer recall collapse without test label exposure. (vi) Real-time sub-millisecond edge latency benchmarking (&lt;0.5 ms per sequence).
-  </div>
-</div>
+<h2 class="abstract-title">Abstract</h2>
+<p class="abstract-p"><strong>Project.</strong> Predictive maintenance for Air Production Units (APU) in passenger metro trains operated by Metro do Porto, Portugal, anticipates pneumatic compressor leaks and lubrication failures up to two hours before physical breakdown occurs by continuously monitoring 16 multivariate analog and digital telemetry channels. It trains and evaluates 10 machine-learning and deep-learning architectures across four sequential modeling paradigms on real-world industrial telemetry under strict chronological splits.</p>
+
+<p class="abstract-p"><strong>Base paper.</strong> Matthias Jakobs et al. (2026, <em>International Journal of Data Science and Analytics</em>) [1] and Bruno Veloso et al. (2022) [16] evaluate online rule induction (RIPPER, Decision Trees) and tree ensembles (Random Forest, XGBoost) on MetroPT telemetry. They report initial failure detection F1-scores of ~0.65 to 0.78, but exhibit high false alarm rates (precision &lt; 50%) under streaming class imbalance (&gt;98% normal operation) and vulnerability to sensor drift.</p>
+
+<p class="abstract-p"><strong>Proposed method.</strong> We build an end-to-end predictive maintenance pipeline evaluating 10 Deep Learning architectures spanning four sequential paradigms: Recurrent Baselines (LSTM, GRU, BiLSTM), Hybrid Convolutions (CNN-LSTM, CNN-BiLSTM with Attention, TCN), Multi-Head Transformers (Transformer Encoder, Temporal Fusion Transformer), and Unsupervised Generative Latent Models (LSTM Autoencoder, Variational Autoencoder), accompanied by a custom multistage CNN-Transformer. On held-out chronological test sequences (23,668 sequences), Variational Autoencoder (VAE) and LSTM Autoencoder lead theoretical anomaly separation with a peak PR-AUC of 0.9833 (100% recall); Temporal Fusion Transformer (TFT) delivers the premier operational deployment fit with 0.9817 PR-AUC, 99.95% Recall, 96.74% Precision, and 0.9832 F1-Score; while CNN-BiLSTM with Attention achieves 100.00% Recall and 96.66% Precision with an edge inference latency of 0.05 ms.</p>
+
+<p class="abstract-p"><strong>New features.</strong> (1) A 10-algorithm deep learning comparison suite across 4 sequential paradigms. (2) Dual-Evaluation framework isolating ongoing active fault state detection (Task 1) from 2-hour anticipatory pre-failure warning (Task 2). (3) Strict zero-leakage chronological partitioning (65/15/20 and 70/15/15) preserving temporal thermodynamic autocorrelation. (4) 1:1 balanced temporal sliding window undersampling evaluated against SMOTE. (5) Unsupervised validation-only quantile threshold calibration (q90, q95, q98) resolving out-of-distribution cross-dataset transfer recall collapse without test label exposure. (6) Sub-millisecond edge latency benchmarking (&lt;0.5 ms per sequence).</p>
 
 <!-- SECTION 1: INTRODUCTION -->
 <h2 class="section-heading">I. Introduction</h2>
@@ -244,18 +228,17 @@ Traditional railway maintenance policies have historically relied on two convent
   <li><strong>Edge Computing &amp; Real-Time Latency Budgets:</strong> Modern onboard Train Control and Management Systems (TCMS) execute on resource-constrained embedded edge processors, requiring neural architectures to perform forward inference in sub-millisecond execution times without exceeding memory footprints.</li>
 </ol>
 
-<h3 class="sub-heading">Major Contributions of the Proposed Work</h3>
+<h3 class="sub-heading contributions-heading">Major Contributions of the Proposed Work</h3>
 <p>To systematically address these industrial challenges, this project delivers six primary scientific and engineering contributions:</p>
 <ol>
   <li><strong>Comprehensive 10-Algorithm Deep Learning Suite:</strong> Implemented and benchmarked 10 distinct deep learning architectures in PyTorch covering four foundational paradigms: Recurrent Networks (LSTM, GRU, BiLSTM), Hybrid Convolutions (CNN-LSTM, CNN-BiLSTM-Attention, TCN), Multi-Head Transformers (Transformer Encoder, Temporal Fusion Transformer), and Unsupervised Generative Latent Space Models (LSTM Autoencoder, Variational Autoencoder), plus an explicit CNN-to-Transformer multi-stage tensor pipeline.</li>
   <li><strong>Dual-Evaluation Operational Framework:</strong> Formulated two mathematically isolated operational targets to eliminate evaluation conflation in predictive maintenance literature: <em>Task 1 (Active Fault State Monitoring)</em>, which quantifies detection efficacy during ongoing leak crises, and <em>Task 2 (Anticipatory Pre-Failure Warning)</em>, which isolates the critical 2-hour early degradation horizon while strictly excluding the failure breakdown outage.</li>
   <li><strong>Leak-Free Chronological Pipeline:</strong> Established strict temporal train, validation, and test partitioning (65/15/20 for MetroPT-2; 70/15/15 for MetroPT-3) combined with feature standardizers fitted exclusively on training data, guaranteeing complete preservation of temporal integrity with zero future lookahead contamination.</li>
-  <li><strong>Temporal Sequence Window Balancing vs. SMOTE Audit:</strong> Developed an on-the-fly 10-minute sliding window tensor generation pipeline ($W=60$ timesteps, Stride $S=6$) that balances the training partition to an exact 1:1 class ratio (730 windows in MetroPT-2, 1,034 in MetroPT-3) while maintaining real-world natural imbalance on the test partition. Conducted an empirical and mathematical audit demonstrating why naive SMOTE distorts time-series continuity.</li>
-  <li><strong>Unsupervised Validation-Only Threshold Calibration:</strong> Resolved the out-of-distribution recall collapse observed during cross-dataset transfer (MetroPT-3) by deriving operating decision boundaries strictly from healthy validation quantiles ($q_{90}, q_{95}, q_{98}$) without observing test labels, successfully restoring failure recall from 0.00% to 35.02%.</li>
+  <li><strong>Temporal Sequence Window Balancing vs. SMOTE Audit:</strong> Developed an on-the-fly 10-minute sliding window tensor generation pipeline (window length W = 60 timesteps; stride S = 6) that balances the training partition to an exact 1:1 class ratio (730 windows in MetroPT-2, 1,034 in MetroPT-3) while maintaining real-world natural imbalance on the test partition. Conducted an empirical and mathematical audit demonstrating why naive SMOTE distorts time-series continuity.</li>
+  <li><strong>Unsupervised Validation-Only Threshold Calibration:</strong> Resolved the out-of-distribution recall collapse observed during cross-dataset transfer (MetroPT-3) by deriving operating decision boundaries strictly from healthy validation quantiles q90, q95, and q98 without observing test labels, successfully restoring failure recall from 0.00% to 35.02%.</li>
   <li><strong>Real-Time Sub-Millisecond Inference Benchmarking:</strong> Profiled parameter counts, memory footprints, and per-sequence forward-pass inference latencies, proving that hybrid attention and convolutional models execute in 0.02 to 0.49 milliseconds on edge GPU hardware.</li>
 </ol>
 
-<div class="page-break"></div>
 
 <!-- SECTION 2: LITERATURE SURVEY -->
 <h2 class="section-heading">II. Literature Survey</h2>
@@ -265,7 +248,7 @@ Traditional railway maintenance policies have historically relied on two convent
 The theoretical foundation of time-series predictive maintenance rests on extracting localized sensor motifs, modeling long-term temporal dependencies, capturing inter-sensor spatial cross-talk, and mapping high-dimensional signals into latent representations of nominal behavior.
 </p>
 <p>
-<strong>1. Recurrent Sequence Modeling (LSTM, GRU, BiLSTM):</strong> Standard Recurrent Neural Networks (RNNs) suffer from exponential gradient decay across long temporal sequences. The <em>Long Short-Term Memory (LSTM)</em> network [18] resolves this through a constant error carousel maintained by a dedicated Cell State $C_t$ regulated by three multiplicative affine gates:
+<strong>1. Recurrent Sequence Modeling (LSTM, GRU, BiLSTM):</strong> Standard Recurrent Neural Networks (RNNs) suffer from exponential gradient decay across long temporal sequences. The <em>Long Short-Term Memory (LSTM)</em> network [18] resolves this through a constant error carousel maintained by a dedicated cell state C_t regulated by three multiplicative affine gates:
 </p>
 <div class="formula-box">
   f_t = &sigma;(W_f [h_{t-1}, x_t] + b_f) &emsp; <em>(Forget Gate)</em><br>
@@ -274,37 +257,37 @@ The theoretical foundation of time-series predictive maintenance rests on extrac
   o_t = &sigma;(W_o [h_{t-1}, x_t] + b_o), &emsp; h_t = o_t &odot; tanh(C_t) &emsp; <em>(Hidden State Output)</em>
 </div>
 <p>
-The <em>Gated Recurrent Unit (GRU)</em> [19] streamlines this architecture by coupling the forget and input gates into an Update Gate $z_t$ and a Reset Gate $r_t$, eliminating the separate cell state and reducing trainable parameter count by 25% while matching sequence memory retention. The <em>Bidirectional LSTM (BiLSTM)</em> executes parallel forward ($vec{h}_t$) and reverse ($rev{h}_t$) recurrent sweeps, concatenating both representations ($[ vec{h}_t  ||  rev{h}_t ]$) to capture precursor trends and subsequent pressure recovery signatures.
+The <em>Gated Recurrent Unit (GRU)</em> [19] streamlines this architecture by coupling the forget and input gates into an update gate z_t and reset gate r_t, eliminating the separate cell state and reducing trainable parameter count by 25% while matching sequence memory retention. The <em>Bidirectional LSTM (BiLSTM)</em> executes parallel forward and backward recurrent sweeps, then concatenate their hidden-state vectors to capture precursor trends and subsequent pressure recovery signatures.
 </p>
 <p>
-<strong>2. Temporal Convolutional Networks (TCN):</strong> TCN architectures [20] replace sequential recurrences with 1D Dilated Causal Convolutions. Causality guarantees that a convolution kernel at time $t$ depends strictly on inputs at timesteps $s &le; t$. By exponentially scaling the dilation factor $d = 2^i$ across network depth $i &isin; {0, 1, 2}$, the effective temporal receptive field expands to:
+<strong>2. Temporal Convolutional Networks (TCN):</strong> TCN architectures [20] replace sequential recurrences with 1D Dilated Causal Convolutions. Causality guarantees that a convolution kernel at time t depends only on inputs at or before t. The dilation factor doubles by layer (d = 2^i, for i = 0, 1, 2), the effective temporal receptive field expands to:
 </p>
 <div class="formula-box">
-  {Receptive Field} = 1 + &sum;_{i=0}^{L-1} 2 &times; (K - 1) &times; 2^i
+  Receptive field = 1 + 2(K - 1) × sum(2^i), for i = 0 to L - 1
 </div>
 <p>
-Residual connections $y = {Activation}(x + F(x))$ ensure gradient flow across deep convolutional stacks, enabling parallelized processing across the entire sequence dimension without recurrent bottlenecks.
+Residual connections of the form y = activation(x + F(x)) ensure gradient flow across deep convolutional stacks, enabling parallelized processing across the entire sequence dimension without recurrent bottlenecks.
 </p>
 <p>
-<strong>3. Self-Attention &amp; Transformers:</strong> Transformer architectures [21] eliminate recurrence entirely, relying on Multi-Head Self-Attention to map interactions across all sequence timesteps simultaneously. Given input matrix $X &isin; R^{T &times; d}$, linear projections compute Queries $Q$, Keys $K$, and Values $V$:
+<strong>3. Self-Attention &amp; Transformers:</strong> Transformer architectures [21] eliminate recurrence entirely, relying on Multi-Head Self-Attention to map interactions across all sequence timesteps simultaneously. For an input matrix X with shape T × d, linear projections compute queries Q, keys K, and values V:
 </p>
 <div class="formula-box">
-  {Attention}(Q, K, V) = {softmax}&le;ft(frac{Q K^T}{sqrt{d_k}}ight) V
+  Attention(Q, K, V) = softmax(QKᵀ / sqrt(d_k)) V
 </div>
 <p>
-To inject temporal order awareness, Sinusoidal Positional Encodings $PE_{(pos, 2i)} = sin(pos / 10000^{2i/d})$ are added directly to input embeddings. The <em>Temporal Fusion Transformer (TFT)</em> [17] extends self-attention for heterogeneous industrial time-series through Gated Residual Networks (GRNs) and Variable Selection Networks (VSNs), which dynamically compute softmax attention weights across all 16 input telemetry channels, effectively pruning uninformative noise channels prior to temporal sequence self-attention.
+To inject temporal order awareness, sinusoidal positional encodings PE(pos, 2i) = sin(pos / 10000^(2i/d)) are added directly to input embeddings. The <em>Temporal Fusion Transformer (TFT)</em> [17] extends self-attention for heterogeneous industrial time-series through Gated Residual Networks (GRNs) and Variable Selection Networks (VSNs), which dynamically compute softmax attention weights across all 16 input telemetry channels, effectively pruning uninformative noise channels prior to temporal sequence self-attention.
 </p>
 <p>
-<strong>4. Unsupervised Latent Generative Models (LSTM-AE, VAE):</strong> Because failure events are rare, unsupervised anomaly detection models are trained to compress healthy sensor patterns into a low-dimensional bottleneck latent representation $z$, and reconstruct the original signal $hat{x}$. The anomaly detection metric is the mean squared reconstruction error:
+<strong>4. Unsupervised Latent Generative Models (LSTM-AE, VAE):</strong> Because failure events are rare, unsupervised anomaly detection models are trained to compress healthy sensor patterns into a low-dimensional bottleneck latent representation z and reconstruct the original signal x_hat. The anomaly detection metric is the mean squared reconstruction error:
 </p>
 <div class="formula-box">
-  {Anomaly Score}(x) = {MSE}(x, hat{x}) = frac{1}{T &times; C} &sum;_{t=1}^{T} &sum;_{c=1}^{C} (x_{t,c} - hat{x}_{t,c})^2
+  Anomaly score MSE(x, x_hat) = (1 / (T × C)) × sum over t and c of (x[t,c] - x_hat[t,c])^2
 </div>
 <p>
-While standard LSTM Autoencoders [24] map deterministically to a latent vector, the <em>Variational Autoencoder (VAE)</em> [22] maps the sequence to a probabilistic distribution defined by mean vector $&mu;$ and log-variance $log &sigma;^2$. Using the <em>Reparameterization Trick</em> $z = &mu; + &epsilon; &odot; &sigma;$ where $&epsilon; ~ N(0, I)$, the model optimizes the Evidence Lower Bound (ELBO):
+While standard LSTM Autoencoders [24] map deterministically to a latent vector, the <em>Variational Autoencoder (VAE)</em> [22] maps the sequence to a probabilistic distribution defined by mean vector mu and log-variance log(sigma^2). Using the <em>reparameterization trick</em> z = mu + epsilon × sigma, where epsilon is sampled from a standard normal distribution, the model optimizes the Evidence Lower Bound (ELBO):
 </p>
 <div class="formula-box">
-  L_{{ELBO}}(x) = E_{q_&phi;(z|x)}[log p_&theta;(x|z)] - D_{{KL}}(q_&phi;(z|x)  ||  p(z))
+  ELBO(x) = expected log-likelihood - KL divergence between q(z|x) and the prior p(z)
 </div>
 <p>
 The KL divergence term forces the latent space to remain smooth and continuous, preventing arbitrary clustering and producing exceptionally smooth anomaly score separation between nominal compressor cycling and pneumatic failure modes.
@@ -534,7 +517,7 @@ The KL divergence term forces the latent space to remain smooth and continuous, 
       <td>Multi-Head Self-Attention</td>
       <td>Transformer Encoder-Decoder</td>
       <td>WMT 2014 English-to-German</td>
-      <td>Quadratic complexity $mathcal{O}(T^2)$ in sequence length; requires positional encoding.</td>
+      <td>Quadratic complexity O(T^2) in sequence length; requires positional encoding.</td>
       <td>BLEU 28.4 on translation task</td>
     </tr>
     <tr>
@@ -624,7 +607,7 @@ The KL divergence term forces the latent space to remain smooth and continuous, 
       <td>One-Class Kernel Classification</td>
       <td>One-Class Support Vector Machine (OC-SVM)</td>
       <td>USPS Digits, Audio Benchmarks</td>
-      <td>Kernel computation scales quadratically $mathcal{O}(N^2)$, failing on million-row datasets.</td>
+      <td>Kernel computation scales quadratically O(N^2), failing on million-row datasets.</td>
       <td>Foundational support boundary anomaly detection</td>
     </tr>
   </tbody>
@@ -633,13 +616,12 @@ The KL divergence term forces the latent space to remain smooth and continuous, 
 <h3 class="sub-heading">(c) Limitations of the Existing Work</h3>
 <p>Our systematic review identifies four critical shortcomings in the current predictive maintenance literature:</p>
 <ol>
-  <li><strong>Uncontrolled Temporal Leakage in Splitting:</strong> The majority of published studies apply standard randomized K-fold cross-validation or randomized train-test splits on continuous telemetry. In time-series data, adjacent sensor readings (e.g., $t$ and $t+1$) possess near-identical thermodynamic states. Randomly assigning timesteps into train and test sets leaks future values directly into training, yielding deceptively perfect F1 scores (&gt;99%) that collapse completely upon real-world chronological deployment.</li>
+  <li><strong>Uncontrolled Temporal Leakage in Splitting:</strong> The majority of published studies apply standard randomized K-fold cross-validation or randomized train-test splits on continuous telemetry. In time-series data, adjacent sensor readings (e.g., t and t+1) possess near-identical thermodynamic states. Randomly assigning timesteps into train and test sets leaks future values directly into training, yielding deceptively perfect F1 scores (&gt;99%) that collapse completely upon real-world chronological deployment.</li>
   <li><strong>Conflation of Active Faults and Early Warnings:</strong> Existing models evaluate detection accuracy across the entire failure duration, crediting a model for detecting a leak while the train is already stalled in the depot. In an operational railway setting, detecting an active failure provides zero actionable value; the true test of predictive maintenance is detecting subtle precursor signals during the <em>2-hour anticipatory pre-failure window</em> prior to breakdown.</li>
   <li><strong>Distortion of Physical Physics by Tabular Oversampling (SMOTE):</strong> Prior studies frequently apply naive SMOTE on imbalanced telemetry. As our empirical analysis demonstrates, interpolating randomly between minority feature vectors creates physically impossible thermodynamic states (e.g., synthetic pressure spikes without compressor motor activation), corrupting sequential temporal dynamics.</li>
   <li><strong>Neglect of Cross-Dataset Generalization &amp; Calibration:</strong> Models are almost exclusively trained and evaluated on the same train fleet and sensor batch. When evaluated on out-of-distribution train units with different sensor calibration offsets, conventional fixed thresholds (&tau; = 0.50) experience a catastrophic recall collapse to 0.00%.</li>
 </ol>
 
-<div class="page-break"></div>
 
 <!-- SECTION 3: DATASET DESCRIPTION & SAMPLE DATA -->
 <h2 class="section-heading">III. Dataset Description and Sample Data</h2>
@@ -874,7 +856,7 @@ To demonstrate data provenance, Table 4 displays genuine telemetry records extra
   <tbody>
     <tr>
       <td>2022-01-01 06:01:40</td>
-      <td><span class="badge-pass">Normal Nominal</span></td>
+      <td>Normal Nominal</td>
       <td>-0.012</td>
       <td>9.660</td>
       <td>9.662</td>
@@ -886,7 +868,7 @@ To demonstrate data provenance, Table 4 displays genuine telemetry records extra
     </tr>
     <tr>
       <td>2022-01-01 06:03:20</td>
-      <td><span class="badge-pass">Normal Nominal</span></td>
+      <td>Normal Nominal</td>
       <td>-0.012</td>
       <td>9.562</td>
       <td>9.564</td>
@@ -898,7 +880,7 @@ To demonstrate data provenance, Table 4 displays genuine telemetry records extra
     </tr>
     <tr>
       <td>2022-02-28 19:53:10</td>
-      <td><span class="badge-rank2">Pre-Warning Horizon</span></td>
+      <td>Pre-Warning Horizon</td>
       <td>-0.004</td>
       <td>9.360</td>
       <td>9.370</td>
@@ -910,7 +892,7 @@ To demonstrate data provenance, Table 4 displays genuine telemetry records extra
     </tr>
     <tr>
       <td>2022-02-28 20:05:30</td>
-      <td><span class="badge-rank2">Pre-Warning Horizon</span></td>
+      <td>Pre-Warning Horizon</td>
       <td>-0.008</td>
       <td>8.920</td>
       <td>8.924</td>
@@ -922,7 +904,7 @@ To demonstrate data provenance, Table 4 displays genuine telemetry records extra
     </tr>
     <tr>
       <td>2022-02-28 22:15:00</td>
-      <td><span class="badge-rank1">Active Fault Breakdown</span></td>
+      <td>Active Fault Breakdown</td>
       <td>-0.016</td>
       <td>7.450</td>
       <td>7.452</td>
@@ -935,7 +917,6 @@ To demonstrate data provenance, Table 4 displays genuine telemetry records extra
   </tbody>
 </table>
 
-<div class="page-break"></div>
 
 <!-- SECTION 4: METHODOLOGY -->
 <h2 class="section-heading">IV. Methodology</h2>
@@ -945,12 +926,12 @@ To demonstrate data provenance, Table 4 displays genuine telemetry records extra
 <ol>
   <li><strong>Step 1: Chunked Telemetry Ingestion &amp; 10s Resampling:</strong> Stream multi-gigabyte raw CSV files in 500,000-row chunks; aggregate continuous thermodynamic sensors via 10-second median filtering; aggregate digital discrete switches via mode polling.</li>
   <li><strong>Step 2: Strict Chronological Splitting:</strong> Partition time-series sequentially without row shuffling (MetroPT-2: 65% Train, 15% Val, 20% Test; MetroPT-3: 70% Train, 15% Val, 15% Test) to guarantee zero temporal lookahead leakage.</li>
-  <li><strong>Step 3: Leak-Free Standardization:</strong> Fit <code>StandardScaler</code> parameters exclusively on the training split ($&mu;_{{train}}, &sigma;_{{train}}$); transform validation and test partitions strictly out-of-sample.</li>
-  <li><strong>Step 4: 10-Minute Sliding Sequence Windowing:</strong> Transform 2D tabular features into 3D sequence tensors of shape <code>[Batch_Size, 60 timesteps, 16 features]</code> using window length $W=60$ (600s history) and stride $S=6$ (60s shift).</li>
+  <li><strong>Step 3: Leak-Free Standardization:</strong> Fit <code>StandardScaler</code> parameters exclusively on the training split (training mean and standard deviation); transform validation and test partitions strictly out-of-sample.</li>
+  <li><strong>Step 4: 10-Minute Sliding Sequence Windowing:</strong> Transform 2D tabular features into 3D sequence tensors of shape <code>[Batch_Size, 60 timesteps, 16 features]</code> using window length W = 60 (600 seconds of history) and stride S = 6 (60-second shift).</li>
   <li><strong>Step 5: Training Partition 1:1 Class Balancing:</strong> Apply exact majority undersampling to healthy training sequences to produce an exact 50:50 class balance, enabling neural models to converge in seconds while preventing majority negative bias.</li>
   <li><strong>Step 6: PyTorch Deep Learning Model Suite Execution:</strong> Instantiate and train all 10 deep architectures in PyTorch using binary cross-entropy loss, Adam optimization, and seed-locked reproducibility.</li>
-  <li><strong>Step 7: Dual-Evaluation Framework Execution:</strong> Concurrently evaluate model inference across Task 1 (Active Fault State Monitoring, $N=3,767$ test sequences) and Task 2 (2-Hour Anticipatory Pre-Warning, $N=120$ test sequences).</li>
-  <li><strong>Step 8: Unsupervised Validation Threshold Calibration:</strong> For out-of-distribution transfer scenarios, determine operational decision boundaries ($&tau;$) from healthy validation quantiles ($q_{90}, q_{95}, q_{98}$) to eliminate false alarms and restore test recall.</li>
+  <li><strong>Step 7: Dual-Evaluation Framework Execution:</strong> Concurrently evaluate model inference across Task 1 (Active Fault State Monitoring, N = 3,767 test sequences) and Task 2 (2-Hour Anticipatory Pre-Warning, N = 120 test sequences).</li>
+  <li><strong>Step 8: Unsupervised Validation Threshold Calibration:</strong> For out-of-distribution transfer scenarios, determine operational decision boundaries tau from healthy validation quantiles q90, q95, and q98 to eliminate false alarms and restore test recall.</li>
 </ol>
 
 <h3 class="sub-heading">(b) Detailed Explanation with Concrete Numerical Example</h3>
@@ -959,26 +940,19 @@ To demonstrate the mathematical mechanics of each step, consider a continuous te
 </p>
 <p>
 <strong>1. Concrete Normalization Example:</strong> During training on MetroPT-2, the mean and standard deviation for reservoir pressure and motor current are calculated exclusively from the 462,601 training timesteps:
-$$&mu;_{{Reservoirs}} = 8.942{ bar}, &emsp; &sigma;_{{Reservoirs}} = 1.124{ bar}; &emsp; &mu;_{{Current}} = 2.145{ A}, &emsp; &sigma;_{{Current}} = 2.450{ A}$$
-When an out-of-sample test reading arrives at $t = 2022{-07-15 14:30:10}$ with raw values $x_{{Reservoirs}} = 6.694{ bar}$ and $x_{{Current}} = 7.045{ A}$, the leak-free scaled inputs are computed as:
-$$z_{{Reservoirs}} = frac{6.694 - 8.942}{1.124} = -2.000, &emsp; z_{{Current}} = frac{7.045 - 2.145}{2.450} = +2.000$$
+<code>Reservoir pressure: mean = 8.942 bar, standard deviation = 1.124 bar. Motor current: mean = 2.145 A, standard deviation = 2.450 A.</code>
+At 2022-07-15 14:30:10, an out-of-sample reading of 6.694 bar reservoir pressure and 7.045 A motor current standardizes to z = (6.694 - 8.942) / 1.124 = -2.000 and z = (7.045 - 2.145) / 2.450 = +2.000, respectively.
 The negative 2.0 standard deviation drop in pressure coupled with a positive 2.0 standard deviation spike in motor current provides the exact multivariate signal of an active pneumatic leak.
 </p>
 <p>
-<strong>2. Concrete Sliding Window Tensor Example:</strong> The standardized 16-feature vector is queued into a rolling sliding buffer. With window length $W=60$ timesteps ($60 &times; 10{s} = 600{s} = 10{ minutes}$) and stride $S=6$ timesteps ($60{s}$), the continuous stream is segmented into overlapping sequences:
-$${Sequence }_k = [z_{6k}, z_{6k+1}, z_{6k+2}, dots, z_{6k+59}] &isin; R^{60 &times; 16}$$
-The sequence label $y_k &isin; {0, 1}$ is defined by the ground truth state of the terminal timestep ($t = 6k + 59$).
+<strong>2. Concrete Sliding Window Tensor Example:</strong> The standardized 16-feature vector is queued into a rolling sliding buffer. With window length W = 60 timesteps (60 × 10 seconds = 600 seconds = 10 minutes) and stride S = 6 timesteps (60 seconds), the continuous stream is segmented into overlapping sequences:
+<code>Sequence k = [z(6k), z(6k+1), ..., z(6k+59)]</code>, with shape 60 × 16.
+The sequence label y_k is 0 or 1 and is assigned from the ground-truth state at its final timestep, t = 6k + 59.
 </p>
 <p>
-<strong>3. Custom CNN-Transformer Multi-Stage Tensor Flow:</strong> In our custom hybrid architecture, the forward pass executes through an explicit multi-stage variable passing pipeline:
+<strong>3. CNN-Transformer Tensor Flow:</strong> The hybrid architecture maps each input sequence through a 1D convolution, two transformer encoder stages, temporal mean pooling, and a final linear classifier:
 </p>
-<div class="formula-box">
-  {Input Tensor:} &emsp; X &isin; R^{B &times; 60 &times; 16} <br>
-  {Step 1: 1D CNN Local Feature Extraction} &rarr; tt{cnn_output} = {Conv1D}(X^T)^T &isin; R^{B &times; 60 &times; 64} <br>
-  {Step 2: Transformer Stage 1 Attention} &rarr; tt{transformer_stage1_output} = {TransformerEncoder}_1(tt{cnn_output} + PE) &isin; R^{B &times; 60 &times; 64} <br>
-  {Step 3: Next Sequence Transformer Stage 2} &rarr; tt{transformer_stage2_output} = {TransformerEncoder}_2(tt{transformer_stage1_output}) &isin; R^{B &times; 60 &times; 64} <br>
-  {Step 4: Global Temporal Mean Pooling &amp; Logits} &rarr; hat{y} = {Linear}({mean}(tt{transformer_stage2_output}, {dim}=1)) &isin; R^{B}
-</div>
+<div class="formula-box">Input [batch, 60, 16] → Conv1D [batch, 60, 64] → Transformer encoder × 2 → temporal mean pooling → linear output [batch].</div>
 
 <h3 class="sub-heading">(c) Flowchart</h3>
 <div class="figure-container">
@@ -986,7 +960,6 @@ The sequence label $y_k &isin; {0, 1}$ is defined by the ground truth state of t
   <div class="figure-caption">Fig. A &middot; Complete 8-step end-to-end predictive maintenance pipeline: from raw multi-gigabyte telemetry ingestion to chronological splitting, leak-free normalization, 1:1 balanced sequence windowing, 10-architecture PyTorch benchmarking, dual-evaluation testing, and validation threshold calibration.</div>
 </div>
 
-<div class="page-break"></div>
 
 <!-- SECTION 5: RESULTS AND DISCUSSION -->
 <h2 class="section-heading">V. Results and Discussion</h2>
@@ -1022,7 +995,7 @@ All 10 deep learning architectures were trained and evaluated under strictly ide
       <td>0.3310</td>
       <td>0.4974</td>
       <td><strong>0.9833</strong></td>
-      <td><span class="badge-rank1">&#129351; TOP 1 (PR-AUC)</span></td>
+      <td><strong>TOP 1 (PR-AUC)</strong></td>
     </tr>
     <tr>
       <td>2</td>
@@ -1034,7 +1007,7 @@ All 10 deep learning architectures were trained and evaluated under strictly ide
       <td>0.1589</td>
       <td>0.2742</td>
       <td><strong>0.9833</strong></td>
-      <td><span class="badge-rank2">&#129352; TOP 2 (PR-AUC)</span></td>
+      <td><strong>TOP 2 (PR-AUC)</strong></td>
     </tr>
     <tr>
       <td>3</td>
@@ -1046,7 +1019,7 @@ All 10 deep learning architectures were trained and evaluated under strictly ide
       <td>0.9674</td>
       <td><strong>0.9832</strong></td>
       <td><strong>0.9817</strong></td>
-      <td><span class="badge-rank3">&#129353; TOP 3 (Podium)</span></td>
+      <td><strong>TOP 3 (Podium)</strong></td>
     </tr>
     <tr>
       <td>4</td>
@@ -1173,7 +1146,7 @@ To evaluate cross-dataset transfer robustness, models trained on MetroPT-2 were 
       <td>0.4146</td>
       <td>0.0291</td>
       <td>21.6s</td>
-      <td><span class="badge-rank1">&#129351; Rank 1</span></td>
+      <td><strong>Rank 1</strong></td>
     </tr>
     <tr>
       <td><strong>MetroPT-3 (APU)</strong></td>
@@ -1183,7 +1156,7 @@ To evaluate cross-dataset transfer robustness, models trained on MetroPT-2 were 
       <td>0.0000</td>
       <td>0.0000</td>
       <td>21.2s</td>
-      <td><span class="badge-rank2">&#129352; Rank 2</span></td>
+      <td><strong>Rank 2</strong></td>
     </tr>
     <tr>
       <td><strong>MetroPT-3 (APU)</strong></td>
@@ -1193,7 +1166,7 @@ To evaluate cross-dataset transfer robustness, models trained on MetroPT-2 were 
       <td>0.0000</td>
       <td>0.0000</td>
       <td>8.8s</td>
-      <td><span class="badge-rank3">&#129353; Rank 3</span></td>
+      <td><strong>Rank 3</strong></td>
     </tr>
     <tr>
       <td><strong>MetroPT-2 (APU)</strong></td>
@@ -1203,7 +1176,7 @@ To evaluate cross-dataset transfer robustness, models trained on MetroPT-2 were 
       <td>0.9686</td>
       <td>0.9841</td>
       <td>13.8s</td>
-      <td><span class="badge-rank1">&#129351; Rank 1</span></td>
+      <td><strong>Rank 1</strong></td>
     </tr>
     <tr>
       <td><strong>MetroPT-2 (APU)</strong></td>
@@ -1213,7 +1186,7 @@ To evaluate cross-dataset transfer robustness, models trained on MetroPT-2 were 
       <td>0.9681</td>
       <td>0.9838</td>
       <td>5.8s</td>
-      <td><span class="badge-rank2">&#129352; Rank 2</span></td>
+      <td><strong>Rank 2</strong></td>
     </tr>
     <tr>
       <td><strong>MetroPT-2 (APU)</strong></td>
@@ -1223,13 +1196,13 @@ To evaluate cross-dataset transfer robustness, models trained on MetroPT-2 were 
       <td>0.9669</td>
       <td>0.9830</td>
       <td>15.2s</td>
-      <td><span class="badge-rank3">&#129353; Rank 3</span></td>
+      <td><strong>Rank 3</strong></td>
     </tr>
   </tbody>
 </table>
 
 <p>
-Table 7 presents the results of our Dual-Evaluation Framework, isolating Task 1 (Active Fault State Monitoring) from Task 2 (2-Hour Anticipatory Pre-Failure Warning). Table 8 displays the results of our unsupervised validation threshold calibration procedure ($q_{90}, q_{95}, q_{98}$) on MetroPT-3.
+Table 7 presents the results of our Dual-Evaluation Framework, isolating Task 1 (Active Fault State Monitoring) from Task 2 (2-Hour Anticipatory Pre-Failure Warning). Table 8 displays the results of our unsupervised validation threshold calibration procedure q90, q95, and q98 on MetroPT-3.
 </p>
 
 <table class="academic-table">
@@ -1437,11 +1410,10 @@ Table 9 presents a formal comparison between our proposed deep learning predicti
 <strong>Reconciling PR-AUC Ranking vs. Operational Deployment:</strong> A crucial scientific insight revealed by our benchmark is the dual perspective between theoretical mathematical ranking and operational railway dispatching:
 </p>
 <ul>
-  <li><strong>Theoretical Mathematical Ranking (PR-AUC):</strong> Unsupervised models—<strong>VAE</strong> and <strong>LSTM Autoencoder</strong>—rank #1 and #2 with a near-perfect <strong>0.9833 PR-AUC</strong>. Because continuous reconstruction error (${MSE}(x, hat{x})$) naturally separates healthy vs. abnormal sequences across all potential decision thresholds from $0$ to $&isin;fty$, the integrated area under the curve is exceptionally high. However, at a standard default decision threshold ($&tau; = 0.50$), their uncalibrated error magnitude yields low precision (15.89% for LSTM-AE, 33.10% for VAE), which would translate to 67% to 84% false alarms in a real depot.</li>
+  <li><strong>Theoretical Mathematical Ranking (PR-AUC):</strong> Unsupervised models—<strong>VAE</strong> and <strong>LSTM Autoencoder</strong>—rank #1 and #2 with a near-perfect <strong>0.9833 PR-AUC</strong>. Because continuous reconstruction error (mean squared reconstruction error) naturally separates healthy vs. abnormal sequences across all potential decision thresholds from zero to infinity, the integrated area under the curve is exceptionally high. However, at a standard default decision threshold (threshold tau = 0.50), their uncalibrated error magnitude yields low precision (15.89% for LSTM-AE, 33.10% for VAE), which would translate to 67% to 84% false alarms in a real depot.</li>
   <li><strong>Operational Railway Deployment (F1-Score &amp; Precision):</strong> For operational train dispatching where false alarms cause expensive unnecessary depot withdrawals, supervised hybrid models are superior. <strong>Temporal Fusion Transformer (TFT)</strong> achieves <strong>0.9817 PR-AUC, 99.95% Recall, and 96.74% Precision (F1: 0.9832)</strong>, while <strong>CNN-BiLSTM with Attention</strong> achieves <strong>100.00% Recall, 96.66% Precision</strong> with an edge latency of only <strong>0.05 milliseconds</strong>.</li>
 </ul>
 
-<div class="page-break"></div>
 
 <!-- SECTION 6: CONCLUSION & FUTURE WORK -->
 <h2 class="section-heading">VI. Conclusion and Future Work</h2>
@@ -1465,6 +1437,7 @@ Benchmarking across 10 deep learning architectures revealed that the <strong>Var
 </ol>
 
 <!-- SECTION: REFERENCES (Exact 30 References) -->
+<div style="page-break-before: always; break-before: page;"></div>
 <h2 class="section-heading">References</h2>
 <ol class="references-list">
   <li>M. Jakobs, B. Veloso, and J. Gama, &ldquo;Interpretable rules for online failure prediction: a case study on Metro do Porto datasets,&rdquo; <em>International Journal of Data Science and Analytics</em>, vol. 22, p. 59, 2026, doi: 10.1007/s41060-026-01039-3.</li>
@@ -1483,11 +1456,11 @@ Benchmarking across 10 deep learning architectures revealed that the <strong>Var
   <li>S. I. Eunus, S. Hossain, A. E. M. Ridwan, A. Adnan, M. S. Islam, D. Z. Karim, G. Rabiul, and M. A. Rahman, &ldquo;ECARRNet: An efficient LSTM-based ensembled deep neural network architecture for railway fault detection,&rdquo; <em>AI</em>, vol. 5, no. 2, pp. 482&ndash;503, 2024, doi: 10.3390/ai5020024.</li>
   <li>J. Huang, &ldquo;Deep domain adaptation approach using an improved parallel residual network for cross-domain bearing fault diagnosis,&rdquo; <em>Shock and Vibration</em>, vol. 2024, art. 7262611, 2024, doi: 10.1155/2024/7262611.</li>
   <li>B. Veloso, R. P. Ribeiro, P. M. Pereira, and J. Gama, &ldquo;The MetroPT dataset for predictive maintenance,&rdquo; <em>Scientific Data</em>, vol. 9, no. 1, art. 764, 2022, doi: 10.1038/s41597-022-01877-3.</li>
-  <li>B. Lim, S. &Ouml;. Aru0131k, N. Loeff, and T. Pfister, &ldquo;Temporal fusion transformers for interpretable multi-horizon time series forecasting,&rdquo; <em>International Journal of Forecasting</em>, vol. 37, no. 4, pp. 1748&ndash;1764, 2021, doi: 10.1016/j.ijforecast.2021.03.012.</li>
+  <li>B. Lim, S. &Ouml;. Arık, N. Loeff, and T. Pfister, &ldquo;Temporal fusion transformers for interpretable multi-horizon time series forecasting,&rdquo; <em>International Journal of Forecasting</em>, vol. 37, no. 4, pp. 1748&ndash;1764, 2021, doi: 10.1016/j.ijforecast.2021.03.012.</li>
   <li>S. Hochreiter and J. Schmidhuber, &ldquo;Long short-term memory,&rdquo; <em>Neural Computation</em>, vol. 9, no. 8, pp. 1735&ndash;1780, 1997, doi: 10.1162/neco.1997.9.8.1735.</li>
-  <li>K. Cho, B. van Merriu00ebnboer, C. Gulcehre, D. Bahdanau, F. Bougares, H. Schwenk, and Y. Bengio, &ldquo;Learning phrase representations using RNN encoder-decoder for statistical machine translation,&rdquo; in <em>Proc. EMNLP</em>, 2014, pp. 1724&ndash;1734.</li>
+  <li>K. Cho, B. van Merriënboer, C. Gulcehre, D. Bahdanau, F. Bougares, H. Schwenk, and Y. Bengio, &ldquo;Learning phrase representations using RNN encoder-decoder for statistical machine translation,&rdquo; in <em>Proc. EMNLP</em>, 2014, pp. 1724&ndash;1734.</li>
   <li>S. Bai, J. Z. Kolter, and V. Koltun, &ldquo;An empirical evaluation of generic convolutional and recurrent networks for sequence modeling,&rdquo; <em>arXiv preprint arXiv:1803.01271</em>, 2018.</li>
-  <li>A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez, u0141. Kaiser, and I. Polosukhin, &ldquo;Attention is all you need,&rdquo; in <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, vol. 30, 2017, pp. 5998&ndash;6008.</li>
+  <li>A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez, Ł. Kaiser, and I. Polosukhin, &ldquo;Attention is all you need,&rdquo; in <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, vol. 30, 2017, pp. 5998&ndash;6008.</li>
   <li>D. P. Kingma and M. Welling, &ldquo;Auto-encoding variational Bayes,&rdquo; in <em>Proc. International Conference on Learning Representations (ICLR)</em>, 2014.</li>
   <li>N. V. Chawla, K. W. Bowyer, L. O. Hall, and W. P. Kegelmeyer, &ldquo;SMOTE: synthetic minority over-sampling technique,&rdquo; <em>Journal of Artificial Intelligence Research</em>, vol. 16, pp. 321&ndash;357, 2002, doi: 10.1613/jair.953.</li>
   <li>P. Malhotra, L. Vig, M. Shroff, and P. Agarwal, &ldquo;Long short term memory networks for anomaly detection in time series,&rdquo; in <em>Proc. ESANN</em>, 2015, pp. 89&ndash;94.</li>
