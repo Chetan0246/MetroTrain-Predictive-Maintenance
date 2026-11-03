@@ -1,10 +1,19 @@
-# Dataset & Benchmark Image Files Directory
+# Dataset & Telemetry Image Files Directory
 
-This folder contains all high-resolution figures, telemetry visualisations, and benchmark curves generated during the project.
+This folder contains all high-resolution figures, dataset sensor waveform visualizations, and benchmark curves for the Metro Train Predictive Maintenance project.
 
 ---
 
-## 1. Figure Inventory
+## 1. Dataset Telemetry Image Files
+
+| Image File Name | Image Title & Scope | Dataset Source & Physical Significance |
+| :--- | :--- | :--- |
+| **`raw_telemetry_waveforms_metropt2.png`** | MetroPT-2 Multi-Channel Sensor Waveforms | Direct visual plot of raw dataset channels (`TP2`, `TP3`, `H1`, `Motor_current`, `Oil_temperature`, `Reservoirs`, `DV_pressure`, `COMP`, `Towers`) showing compressor pumping cycles and pressure oscillation. |
+| **`raw_telemetry_waveforms_metropt3.png`** | MetroPT-3 Multi-Channel Sensor Waveforms | Direct visual plot of raw dataset channels covering lubrication temperature, float switch state (`Oil_level`), motor current, and air production dynamics across 10-second intervals. |
+
+---
+
+## 2. Experimental & Benchmark Image Files
 
 | Figure File Name | Figure Title & Scope | Research & Practical Significance |
 | :--- | :--- | :--- |
@@ -18,8 +27,9 @@ This folder contains all high-resolution figures, telemetry visualisations, and 
 
 ---
 
-## 2. Technical Details
+## 3. Technical Specifications
 
 - **Format**: Lossless Portable Network Graphics (`.png`)
 - **Resolution**: 300 DPI publication quality
-- **Styling**: Academic serif typography, publication-grade colormaps, Seaborn/Matplotlib styling.
+- **Dimensions**: 14 × 10 inches / publication grid
+- **Domain Context**: Metro do Porto Air Production Unit (APU) compressor telemetry

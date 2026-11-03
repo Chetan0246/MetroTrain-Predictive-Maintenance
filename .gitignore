@@ -32,6 +32,9 @@ data/raw/*.zip
 data/raw/*.tar.gz
 !data/raw/metropt3/.gitkeep
 !data/raw/metropt2/.gitkeep
+Dataset_Folder/CSV_Files/MetroPT2.csv
+Dataset_Folder/CSV_Files/MetroPT3.csv
+Dataset_Folder/CSV_Files/dataset_train.csv
 
 # Temporary / Scratch
 scratch/
